@@ -12,8 +12,6 @@ except ImportError:
     # Fall back to Python 2's urllib2
     from urllib2 import urlopen
 
-# from tempatdotcom.core.lib.image_compress import CompressImage
-
 Image.LOAD_TRUNCATED_IMAGES = True
 COMPRESS_IMAGE_FORMAT = getattr(
     settings, "COMPRESS_IMAGE_FORMAT", 'jpg')
@@ -27,9 +25,8 @@ XWORK_IMG_SIZE = {
 SAVED_IMAGE_PATH = 'img'
 MIN_FILE_SIZE = 100  # below this limit will not be compressed
 IMAGE_COMPRESS_QUALITY = 90
-CELERY_RUNNING = getattr(settings, 'CELERY_RUNNING', False)
 
-class BranchImageCompressor(object):
+class S3_ImageCompressor(object):
     def __init__(self, *args, **kwargs):
         self.file_stream = None
         self.filename_src = None
@@ -131,12 +128,7 @@ class BranchImageCompressor(object):
 from tempatdotcom.server.tasks import compress_s3_image_from_url_task
 
 def compress_s3_image_from_url(url_input):
-    if CELERY_RUNNING:
-        compress_s3_image_from_url_task.delay(url_input)
-    else:
-        compress_s3_image_from_url_task(url_input)
-
-    # cls_img_compress = BranchImageCompressor()
+    # cls_img_compress = S3_ImageCompressor()
     # cls_img_compress.open_class_s3()
     # cls_img_compress.get_img_from_url(url_input)
     # cls_img_compress.compress_and_upload_to_s3()

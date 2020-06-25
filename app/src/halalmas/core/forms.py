@@ -4,15 +4,9 @@ from dal import autocomplete
 
 from datetime import datetime, timedelta
 
-from django.utils.safestring import mark_safe
-from django.utils.translation import ugettext_lazy as _
+# from django.utils.safestring import mark_safe
+# from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
-
-# from django import forms
-# from django.forms import widgets_special
-# from django.forms.util import ValidationError
-# from django.utils.currency import Currency, NumberFormatError
-# from django.forms import fields
 
 
 class AutocompleteWidget(autocomplete.ModelSelect2):

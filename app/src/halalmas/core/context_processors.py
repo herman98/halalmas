@@ -6,12 +6,12 @@ import calendar
 
 from django.conf import settings
 from .functions import display_name
-from tempatdotcom.crm.objects.dashboard.functions \
+from halalmas.crm.objects.dashboard.functions \
     import user_roles_data, get_selected_role
-# from tempatdotcom.xwork.functions import \
+# from halalmas.xwork.functions import \
 #     raw_building_no_region, get_count_data
-# from tempatdotcom.crm.object.inquiry.functions import count_booking_duration, cra_pic_nav
-# from tempatdotcom.xwork.models import WithdrawRequests, Orders
+# from halalmas.crm.object.inquiry.functions import count_booking_duration, cra_pic_nav
+# from halalmas.xwork.models import WithdrawRequests, Orders
 
 from django.db.models import Q
 
@@ -20,21 +20,21 @@ DATABASE_DEFAULT = getattr(settings, 'DATABASE_DEFAULT', 'default')
 PROJECT_URL = getattr(settings, 'PROJECT_URL', 'http://localhost:8000')
 # DATABASES = getattr(settings, 'DATABASES', {})
 INSTALLED_APPS = getattr(settings, 'INSTALLED_APPS', tuple())
-TEMPATDOTCOM_URL = getattr(settings, 'XWORK_URL', 'https://tempat.com')
+HALALMAS_URL = getattr(settings, 'HALALMAS_URL', 'https://halalmas.marikoding.com')
 
 
-def tempatdotcom(request):
+def halalmas(request):
     if request.user.is_authenticated:
-        tempatdotcom_current_role = get_selected_role(request.user)
+        halalmas_current_role = get_selected_role(request.user)
     else:
-        tempatdotcom_current_role = request.user
+        halalmas_current_role = request.user
 
     no_logo = u'<img src="/static/images/profile/no-logo-1.png" alt="company-logo" width="36" class="img-circle"/>'
     ret_dict_out = {'PROJECT_URL': PROJECT_URL,
-                    'tempatdotcom_roles': user_roles_data(request),
-                    'tempatdotcom_current_role':  tempatdotcom_current_role,
+                    'halalmas_roles': user_roles_data(request),
+                    'halalmas_current_role':  halalmas_current_role,
                     'nav_profile_logo': no_logo,
-                    'tempatdotcom_URL': TEMPATDOTCOM_URL,
+                    'halalmas_URL': HALALMAS_URL,
                     }
     return ret_dict_out
 
