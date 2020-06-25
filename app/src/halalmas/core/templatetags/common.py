@@ -4,7 +4,7 @@ from django import template
 from django.template import NodeList
 from django.contrib.auth.models import Group
 
-from tempatdotcom.crm.objects.dashboard.functions import get_selected_role
+from halalmas.crm.objects.dashboard.functions import get_selected_role
 
 
 register = template.Library()

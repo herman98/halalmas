@@ -3,7 +3,7 @@ import logging
 from django.conf import settings
 from django.core.management.base import BaseCommand, CommandError
 
-from tempatdotcom.core.tasks import send_email
+from halalmas.core.tasks import send_email
 from django.template.loader import get_template
 
 

@@ -27,7 +27,7 @@ from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 
 
-TEMPATDOTCOM_PROJ = getattr(settings, 'TEMPATDOTCOM_PROJ', 'SERVER')
+HALALMAS_PROJ = getattr(settings, 'HALALMAS_PROJ', 'WEB_SERVER')
 OBJECT_APPS = getattr(settings, 'OBJECT_APPS', tuple())
 DEBUG = getattr(settings, 'DEBUG')
 MEDIA_URL = getattr(settings, 'MEDIA_URL')
@@ -40,11 +40,11 @@ admin.autodiscover()
 
 schema_view = get_schema_view(
    openapi.Info(
-      title="tempatdotcom API",
+      title="halalmas API",
       default_version='v1',
-      description="API's for tempat dot com web and mobile app",
-      terms_of_service="https://tempat.com/policies/terms/",
-      contact=openapi.Contact(email="tech@tempat.com"),
+      description="API's for halalmas.marikoding dot com web and mobile app",
+      terms_of_service="https://halalmas.marikoding.com/policies/terms/",
+      contact=openapi.Contact(email="budi.hermansyah@marikoding.com"),
       license=openapi.License(name="BSD License"),
    ),
    public=True,
@@ -55,18 +55,18 @@ urlpatterns = [
     # core app urls
     # path('oauth2/', include('rest_framework_social_oauth2.urls')),
 
-    path('api/', include('tempatdotcom.api.urls')),
-    path('objects/', include('tempatdotcom.server.objects.urls')),
-    path('members/', include('tempatdotcom.server.members.urls')),
-    path('configuration/', include(('tempatdotcom.server.configuration.urls', 'server-configuration'),
+    # path('api/', include('halalmas.api.urls')),
+    path('objects/', include('halalmas.server.objects.urls')),
+    path('members/', include('halalmas.server.members.urls')),
+    path('configuration/', include(('halalmas.server.configuration.urls', 'server-configuration'),
                                    namespace='server-configuration')),
-    path('hosts/', include('tempatdotcom.server.hosts.urls')),
-    path('features/', include('tempatdotcom.server.features.urls')),
+    # path('hosts/', include('halalmas.server.hosts.urls')),
+    # path('features/', include('halalmas.server.features.urls')),
 
-    path('orders/', include('tempatdotcom.server.orders.urls')),
-    path('payments/', include('tempatdotcom.server.payments.urls')),
+    # path('orders/', include('halalmas.server.orders.urls')),
+    # path('payments/', include('halalmas.server.payments.urls')),
 
-    path('scrappers/', include('tempatdotcom.scrappers.urls')),
+    path('scrappers/', include('halalmas.scrappers.urls')),
 
     # admin URL
     path('admin/', admin.site.urls, name='admin'),
@@ -74,7 +74,7 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls'), name='accounts'),
 
     # Dashboard
-    path('dashboard/', include(('tempatdotcom.crm.objects.dashboard.urls', 'dashboards'),
+    path('dashboard/', include(('halalmas.crm.objects.dashboard.urls', 'dashboards'),
                                namespace='dashboard')),
 
     # social oauth
@@ -98,7 +98,7 @@ if OPEN_API_URL == True:
     ]
     urlpatterns = urlpatterns + open_api_pattern
 
-if TEMPATDOTCOM_PROJ == 'CRM':
+if HALALMAS_PROJ == 'CRM':
     from .crm.views import (welcome, empty, logout_view,
                             login_view, index_page)
     crm_pattern = [
@@ -109,7 +109,7 @@ if TEMPATDOTCOM_PROJ == 'CRM':
         path('empty', empty, name='empty'),
 
         # CRM url
-        path('crm/', include('tempatdotcom.crm.urls'), name='crm'),
+        path('crm/', include('halalmas.crm.urls'), name='crm'),
     ]
     urlpatterns = urlpatterns + crm_pattern
 else:
@@ -131,6 +131,6 @@ if DEBUG:
 # Text to put at the end of each page's <title>.
 admin.site.site_title = ugettext_lazy('TEMPAT DOT COM CRM')
 # Text to put in each page's <h1> (and above login form).
-admin.site.site_header = ugettext_lazy('tempatdotcom-crm')
+admin.site.site_header = ugettext_lazy('halalmas-crm')
 # Text to put at the top of the admin index page.
-admin.site.index_title = ugettext_lazy('tempatdotcom-crm administration')
+admin.site.index_title = ugettext_lazy('halalmas-crm administration')

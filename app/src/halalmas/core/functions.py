@@ -14,7 +14,7 @@ from django.db import connections, transaction
 from django.conf import settings
 
 KNOWN_FILE_EXTENTIONS = ('csv', 'kml')
-XWORK_ALLCAPS_NAMES = getattr(settings, 'TEMPATDOTCOM_ALLCAPS_NAMES', ())
+XWORK_ALLCAPS_NAMES = getattr(settings, 'HALALMAS_ALLCAPS_NAMES', ())
 
 ALLCAPS_NAMES = tuple(
     set(XWORK_ALLCAPS_NAMES).union(set(KNOWN_FILE_EXTENTIONS)))

@@ -12,13 +12,13 @@ from django.contrib.auth.models import User, Group
 from xwork.models import (Rooms, CmsUsers, Roles, UserRoles,
                           Brands, CmsUserRooms)
 
-from tempatdotcom.server.hosts.brands.models import Brand as tmp_Brand
-from tempatdotcom.server.hosts.branches.models import Branch
-from tempatdotcom.server.hosts.spaces.models import Spaces
-from tempatdotcom.server.hosts.profile.models import HostUserProfile, HostUser, HostUserRole
+from halalmas.server.hosts.brands.models import Brand as tmp_Brand
+from halalmas.server.hosts.branches.models import Branch
+from halalmas.server.hosts.spaces.models import Spaces
+from halalmas.server.hosts.profile.models import HostUserProfile, HostUser, HostUserRole
 
-from tempatdotcom.server.objects.companies.models import Company
-from tempatdotcom.server.objects.buildings.models import Building
+from halalmas.server.objects.companies.models import Company
+from halalmas.server.objects.buildings.models import Building
 
 from .host_fuctions import HostFuncTools
 

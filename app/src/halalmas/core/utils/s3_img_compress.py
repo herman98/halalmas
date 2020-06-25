@@ -111,7 +111,7 @@ class S3_ImageCompressor(object):
                 print('===============',full_path)
                 self.clsUploadToS3.upload_image_stream_file(output, full_path)
                 # remark if Productions : save file into local folder
-                # self.clsUploadToS3.save_into_local(output, f'/home/herman3g/tempatdotcom/aws/s3/{new_filename}')
+                # self.clsUploadToS3.save_into_local(output, f'/home/herman3g/marikoding/aws/s3/{new_filename}')
 
             except Exception as e:
                 print("ERR: {}".format(e))
@@ -125,14 +125,14 @@ class S3_ImageCompressor(object):
         self.clsUploadToS3.close_connection()
 
 
-from tempatdotcom.server.tasks import compress_s3_image_from_url_task
+# from halalmas.server.tasks import compress_s3_image_from_url_task
 
 def compress_s3_image_from_url(url_input):
-    # cls_img_compress = S3_ImageCompressor()
-    # cls_img_compress.open_class_s3()
-    # cls_img_compress.get_img_from_url(url_input)
-    # cls_img_compress.compress_and_upload_to_s3()
-    # cls_img_compress.close_s3_connection()
+    cls_img_compress = S3_ImageCompressor()
+    cls_img_compress.open_class_s3()
+    cls_img_compress.get_img_from_url(url_input)
+    cls_img_compress.compress_and_upload_to_s3()
+    cls_img_compress.close_s3_connection()
 
 
 def test_one():
@@ -140,6 +140,6 @@ def test_one():
     # print(
     #     f'cls_upload_tos3.get_s3_http_addr {cls_upload_tos3.get_s3_http_addr}')
 
-    url_input = 'https://tempatdotcom.s3-ap-southeast-1.amazonaws.com/server/media/branch/1000/picture-1450443521.jpg'
+    url_input = 'https://halalmas.s3-ap-southeast-1.amazonaws.com/server/media/branch/1000/picture-1450443521.jpg'
     compress_s3_image_from_url(url_input)
     # print(f'{get_file_stream} {cls_img_compress.get_file_stream}')

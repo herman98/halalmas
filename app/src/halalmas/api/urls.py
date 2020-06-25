@@ -5,7 +5,7 @@ from django.conf.urls import include, url
 
 
 urlpatterns = [
-    url(r'^v1/', include('tempatdotcom.api.v1.urls')),
-    url(r'^v2/', include('tempatdotcom.api.v2.urls')),
-    url(r'^v3/', include('tempatdotcom.api.v3.urls')),
+    url(r'^v1/', include('halalmas.api.v1.urls')),
+    url(r'^v2/', include('halalmas.api.v2.urls')),
+    url(r'^v3/', include('halalmas.api.v3.urls')),
 ]

@@ -6,11 +6,11 @@ from django.core.management.base import BaseCommand, CommandError
 from django.contrib.gis.geos import Point
 
 from xwork.models import Buildings, BuildingCategories, RatingMaster
-from tempatdotcom.server.objects.buildings.models import Building as tmpt_Buildings
-from tempatdotcom.server.objects.buildings.models import BuildingCategory as tmpt_BuildingsCat
-from tempatdotcom.server.features.ratings_and_reviews.models import RatingReviewMasters as tmpt_RatingReviewMasters
+from halalmas.server.objects.buildings.models import Building as tmpt_Buildings
+from halalmas.server.objects.buildings.models import BuildingCategory as tmpt_BuildingsCat
+from halalmas.server.features.ratings_and_reviews.models import RatingReviewMasters as tmpt_RatingReviewMasters
 
-from tempatdotcom.core.utils.xwork_data_migrations import HostDataMigrations
+from halalmas.core.utils.xwork_data_migrations import HostDataMigrations
 
 
 class MigrationData(object):
@@ -98,7 +98,7 @@ class MigrationData(object):
 
 
 class Command(BaseCommand):
-    help = 'migrate data from xwork mysql into tempatdotcom postgresql'
+    help = 'migrate data from xwork mysql into halalmas postgresql'
 
     def add_arguments(self, parser):
         # parser.add_argument('mode', nargs='+', type=str)

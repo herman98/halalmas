@@ -4,8 +4,8 @@ import json
 
 from django.conf import settings
 
-from tempatdotcom.core.lib.ses_mail import SES
-from tempatdotcom.core.lib.pdf import render_to_pdf
+from halalmas.core.lib.ses_mail import SES
+from halalmas.core.lib.pdf import render_to_pdf
 
 from celery import shared_task
 from celery import task
@@ -17,8 +17,8 @@ from email.utils import COMMASPACE
 
 
 EMAIL_NO_REPLY = getattr(settings, 'EMAIL_NO_REPLY',
-                         "tempatdotcom <noreply@tempat.com>")
-EMAIL_CS_TEMPATDOTCOM = getattr(settings, 'EMAIL_CS_TEMPATDOTCOM',
+                         "halalmas <noreply@tempat.com>")
+EMAIL_CS_HALALMAS = getattr(settings, 'EMAIL_CS_HALALMAS',
                          "hello@tempat.com")
 CELERY_RUNNING = getattr(settings, 'CELERY_RUNNING', False)
 
@@ -36,11 +36,11 @@ def send_email_task(recipient, payload={}, **kwargs):
     # print(kwargs)
     logger.debug(f'EMAIL_NO_REPLY: {EMAIL_NO_REPLY}, recipient: {recipient} {kwargs}')
 
-    subject = kwargs.get('subject', "tempatdotcom-mail-service-{}".format(date))
+    subject = kwargs.get('subject', "halalmas-mail-service-{}".format(date))
     # print("subject: {}".format(subject))
     email = SES(subject,
                 EMAIL_NO_REPLY, recipient)
-    email.reply_address = EMAIL_CS_TEMPATDOTCOM
+    email.reply_address = EMAIL_CS_HALALMAS
     if 'body' in payload:
         email.message_body = payload['body']
     else:

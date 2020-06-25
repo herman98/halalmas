@@ -1,5 +1,5 @@
 from django.core.management.base import BaseCommand, CommandError
-from tempatdotcom.api.celery.task_test_service import ganang_ganteng
+from halalmas.api.celery.task_test_service import ganang_ganteng
 
 class Command(BaseCommand):
     def handle(self, *args, **options):

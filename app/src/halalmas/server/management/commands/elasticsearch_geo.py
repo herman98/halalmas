@@ -1,5 +1,5 @@
 from django.core.management.base import BaseCommand, CommandError
-from tempatdotcom.api.service.elasticsearch.es_index.geom import ESIndexPOI, ESIndexProvinsi, ESIndexKabupaten, ESIndexKecamatan, ESIndexKelurahan
+from halalmas.api.service.elasticsearch.es_index.geom import ESIndexPOI, ESIndexProvinsi, ESIndexKabupaten, ESIndexKecamatan, ESIndexKelurahan
 
 class Command(BaseCommand):
     help = 'Auto complete re index for elasticsearch'

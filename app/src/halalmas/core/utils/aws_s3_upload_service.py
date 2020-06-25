@@ -10,7 +10,7 @@ AWS_ACCESS_KEY_ID = getattr(
 AWS_SECRET_ACCESS_KEY = getattr(
     settings, 'AWS_SECRET_ACCESS_KEY', None)
 S3_MEDIA_BUCKET = getattr(
-    settings, 'S3_MEDIA_BUCKET', 'tempatdotcom')
+    settings, 'S3_MEDIA_BUCKET', 'halalmas')
 
 class S3_Services():
     bucket_name = S3_MEDIA_BUCKET

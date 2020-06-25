@@ -1,5 +1,5 @@
 from django.core.management.base import BaseCommand, CommandError
-from tempatdotcom.server.hosts.branches.models import BranchImages
+from halalmas.server.hosts.branches.models import BranchImages
 
 class Command(BaseCommand):
 	help = 'Set Primary Images Branch'

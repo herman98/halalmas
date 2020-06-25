@@ -8,8 +8,8 @@ from time import sleep
 from bs4 import BeautifulSoup
 
 
-from tempatdotcom.scrappers.models import WebScrapper, WebScrapperDetail
-from tempatdotcom.scrappers.pergikuliner.models import (
+from halalmas.scrappers.models import WebScrapper, WebScrapperDetail
+from halalmas.scrappers.pergikuliner.models import (
     WebScrapPergiKuliner, WebScrapPergiKulinerImage,
     WebScrapPergiKulinerRnR, WebScrapPergiKulinerRnRImage)
 

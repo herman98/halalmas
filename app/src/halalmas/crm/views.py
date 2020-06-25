@@ -9,7 +9,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.forms.widgets import PasswordInput, TextInput
 
 
-from tempatdotcom.crm.objects.dashboard.views \
+from halalmas.crm.objects.dashboard.views \
     import index as dashboard_index
 
 

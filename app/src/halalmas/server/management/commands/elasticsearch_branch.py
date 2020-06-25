@@ -1,5 +1,5 @@
 from django.core.management.base import BaseCommand, CommandError
-from tempatdotcom.api.service.elasticsearch.es_index.branch import ESIndexBranch
+from halalmas.api.service.elasticsearch.es_index.branch import ESIndexBranch
 
 class Command(BaseCommand):
     help = 'Branch Listing re index for elasticsearch'

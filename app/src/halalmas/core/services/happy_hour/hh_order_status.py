@@ -1,7 +1,7 @@
 import pandas as pd
 import logging
 
-from tempatdotcom.server.orders.happy_hour.models import (
+from halalmas.server.orders.happy_hour.models import (
     OrderHappyHourGroup, OrderHappyHour
 )
 

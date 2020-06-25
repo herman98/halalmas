@@ -5,7 +5,7 @@ from django.conf import settings
 from django.core.management.base import BaseCommand, CommandError
 from django.contrib.gis.geos import Point
 
-from tempatdotcom.core.utils.pergikuliner_parsing import PergikulinerParsetoTempat
+from halalmas.core.utils.pergikuliner_parsing import PergikulinerParsetoTempat
 
 
 class ParsingPergikulinerData(object):
@@ -71,7 +71,7 @@ class ParsingPergikulinerData(object):
 
 
 class Command(BaseCommand):
-    help = 'parsing pergikuliner scrap into tempatdotcom DB'
+    help = 'parsing pergikuliner scrap into halalmas DB'
 
     def add_arguments(self, parser):
         # parser.add_argument('mode', nargs='+', type=str)

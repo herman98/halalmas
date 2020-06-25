@@ -4,5 +4,5 @@ from django.apps import AppConfig
 
 
 class ScrappersConfig(AppConfig):
-    name = 'tempatdotcom.scrappers'
-    verbose_name = 'tempat.com Scrappers for tempat dot com system'
+    name = 'halalmas.scrappers'
+    verbose_name = 'halalmas.marikoding.com Scrappers for halalmas dot com system'

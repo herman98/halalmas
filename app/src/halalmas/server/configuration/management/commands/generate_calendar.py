@@ -4,7 +4,7 @@ import calendar
 from django.conf import settings
 from django.core.management.base import BaseCommand, CommandError
 
-from tempatdotcom.server.configuration.functions import GenerateCalendarDate
+from halalmas.server.configuration.functions import GenerateCalendarDate
 
 
 class Command(BaseCommand):

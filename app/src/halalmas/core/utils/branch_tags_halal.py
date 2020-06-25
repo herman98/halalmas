@@ -3,8 +3,8 @@ import operator
 from django.db.models import Q
 from django.conf import settings
 
-from tempatdotcom.server.objects.tags.models import Tag  # , TagGroup
-from tempatdotcom.server.hosts.branches.models import BranchTags, Branch
+from halalmas.server.objects.tags.models import Tag  # , TagGroup
+from halalmas.server.hosts.branches.models import BranchTags, Branch
 
 # qs = Company.objects.all()
 # if self.q:

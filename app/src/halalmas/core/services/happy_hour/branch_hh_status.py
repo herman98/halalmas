@@ -2,10 +2,10 @@ import pandas as pd
 import logging
 from django.db.models import Count
 
-from tempatdotcom.server.hosts.branches.models import (
+from halalmas.server.hosts.branches.models import (
     Branch
 )
-from tempatdotcom.server.hosts.happy_hour.models import BranchHappyHourSlotHeader
+from halalmas.server.hosts.happy_hour.models import BranchHappyHourSlotHeader
 
 class BranchHappyHourStatus(object):
     def __init__(self, *args, **kwargs):

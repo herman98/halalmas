@@ -11,7 +11,7 @@ from django.contrib.auth.models import User, Group
 
 class HostFuncTools(object):
     def __init__(self):
-        self.default_passwd = "!!tempatdotcom12354!!"
+        self.default_passwd = "!!halalmas12354!!"
 
     def create_random_password(self):
         # pwd_suffix = '%x' % random.getrandbits(16*2)

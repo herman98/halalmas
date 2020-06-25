@@ -1,5 +1,5 @@
 from django.core.management.base import BaseCommand, CommandError
-from tempatdotcom.api.service.elasticsearch.es_orm.seo import SeoNeeded
+from halalmas.api.service.elasticsearch.es_orm.seo import SeoNeeded
 
 class Command(BaseCommand):
 	help = 'Get from ellastic for SEO'

@@ -3,8 +3,8 @@ import logging
 from django.conf import settings
 from django.core.management.base import BaseCommand, CommandError
 
-from tempatdotcom.core.lib.pdf import render_to_pdf
-from tempatdotcom.core.lib.ses_mail import SES
+from halalmas.core.lib.pdf import render_to_pdf
+from halalmas.core.lib.ses_mail import SES
 
 EMAIL_NO_REPLY = getattr(settings, 'EMAIL_NO_REPLY',
                          "'tempat dot com' <noreply@tempat.com>")

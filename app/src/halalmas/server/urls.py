@@ -5,6 +5,6 @@
 
 
 # urlpatterns = [
-#     url(r'^objects/', include('tempatdotcom.server.objects.urls')),
-#     url(r'^members/', include('tempatdotcom.server.members.urls')),
+#     url(r'^objects/', include('halalmas.server.objects.urls')),
+#     url(r'^members/', include('halalmas.server.members.urls')),
 # ]

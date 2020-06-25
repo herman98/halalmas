@@ -3,9 +3,9 @@ import logging
 from django.utils.text import slugify
 from django.core.management.base import BaseCommand, CommandError
 
-from tempatdotcom.server.objects.tags.models import ( Tag, TagGroup)
-from tempatdotcom.server.objects.buildings.models import ( Building )
-from tempatdotcom.server.objects.facilities.models import ( Facility )
+from halalmas.server.objects.tags.models import ( Tag, TagGroup)
+from halalmas.server.objects.buildings.models import ( Building )
+from halalmas.server.objects.facilities.models import ( Facility )
 
 
 class SlugifyFieldGenerator(object):

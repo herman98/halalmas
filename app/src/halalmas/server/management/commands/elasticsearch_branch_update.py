@@ -1,5 +1,5 @@
 from django.core.management.base import BaseCommand, CommandError
-from tempatdotcom.api.service.elasticsearch.es_orm.update_happy import UpdateBranch
+from halalmas.api.service.elasticsearch.es_orm.update_happy import UpdateBranch
 
 class Command(BaseCommand):
     help = 'Update elasticsearch'

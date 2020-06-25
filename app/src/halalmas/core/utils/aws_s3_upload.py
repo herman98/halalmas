@@ -27,8 +27,8 @@ SES_REGION = os.getenv('SES_REGION')
 
 
 # AWS - S3
-export S3_BUCKET_NAME="tempatdotcom"
-export S3_BUCKET_GALLERY="tempatdotcom"
+export S3_BUCKET_NAME="halalmas"
+export S3_BUCKET_GALLERY="halalmas"
 export COMPRESS_IMAGE_FORMAT="JPEG"
 
 # AWS - IM
@@ -71,7 +71,7 @@ class UploadToS3(object):
         self.key_bucket.set_contents_from_file(fp)
         self.key_bucket.make_public()
 
-        # https://tempatdotcom.s3-ap-southeast-1.amazonaws.com/server/media/branch/1/picture-1484192699.JPG
+        # https://halalmas.s3-ap-southeast-1.amazonaws.com/server/media/branch/1/picture-1484192699.JPG
         return "https://{}.s3-{}.amazonaws.com{}".format(
             self.bucket_name,
             self.AWS_S3_REGION_NAME,
@@ -98,7 +98,7 @@ class UploadToS3(object):
             #     "Content-Type": "image/jpg"})
             self.key_bucket.make_public()
 
-            # https://tempatdotcom.s3-ap-southeast-1.amazonaws.com/server/media/branch/1/picture-1484192699.JPG
+            # https://halalmas.s3-ap-southeast-1.amazonaws.com/server/media/branch/1/picture-1484192699.JPG
             # dir_s3 = self.s3_http_addr
             # print(f'dir_s3: {dir_s3}')
             # return "{}{}".format(dir_s3, self.key_bucket.key)
@@ -207,5 +207,5 @@ def upload(url):
 
 def test_one():
     # url_here = 'https://assets-pergikuliner.com/uploads/image/picture/433380/picture-1484192699.JPG'
-    url_here = 'https://tempatdotcom.s3.ap-southeast-1.amazonaws.com/rating-review/11215/10_1568456375133_20190914_162633.jpg'
+    url_here = 'https://halalmas.s3.ap-southeast-1.amazonaws.com/rating-review/11215/10_1568456375133_20190914_162633.jpg'
     upload(url_here)

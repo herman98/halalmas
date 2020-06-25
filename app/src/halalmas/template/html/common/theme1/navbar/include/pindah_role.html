@@ -5,13 +5,13 @@
     </a>
 </li>
 
-{% if tempatdotcom_roles|length > 1 %}
+{% if halalmas_roles|length > 1 %}
 <li><a href="javascript:void(0)" class="waves-effect">
     <i class="icon-grid"></i> <span class="hide-menu"> 
     &nbsp;Change Role<span class="fa arrow"></span>
     </span></a>
     <ul class="nav nav-second-level">
-    {% for role_item in tempatdotcom_roles %}
+    {% for role_item in halalmas_roles %}
         <li><a href="{{ role_item.url }}" class="waves-effect">{{ role_item.role|display_safe }}
         </a>
         </li>

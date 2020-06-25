@@ -1,5 +1,5 @@
 from django.core.management.base import BaseCommand, CommandError
-from tempatdotcom.api.service.elasticsearch.es_orm.update_or_create_branch import UpdateOrCreateBranch
+from halalmas.api.service.elasticsearch.es_orm.update_or_create_branch import UpdateOrCreateBranch
 
 class Command(BaseCommand):
 	help = 'Create or updatte branches for elasticsearch'

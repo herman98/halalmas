@@ -3,10 +3,10 @@ import logging
 from django.conf import settings
 from django.core.management.base import BaseCommand, CommandError
 
-from tempatdotcom.api.service.email.send_mail_controller import MailController
+from halalmas.api.service.email.send_mail_controller import MailController
 
-from tempatdotcom.server.orders.day_use.models import OrderDayUse
-from tempatdotcom.server.orders.happy_hour.models import OrderHappyHourGroup, OrderHappyHour
+from halalmas.server.orders.day_use.models import OrderDayUse
+from halalmas.server.orders.happy_hour.models import OrderHappyHourGroup, OrderHappyHour
 
 class Command(BaseCommand):
 	def handle(self, *args, **options):

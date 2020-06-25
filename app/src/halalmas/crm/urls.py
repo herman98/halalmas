@@ -5,10 +5,10 @@ from django.conf.urls import include, url
 
 
 urlpatterns = [
-    path('merchant/', include(('tempatdotcom.crm.objects.merchant.urls'))),
-    path('buildings/', include(('tempatdotcom.crm.objects.building.urls', 'crm-buildings'), namespace='crm-buildings')),
-    path('company/', include(('tempatdotcom.crm.objects.company.urls', 'crm-company'), namespace='crm-company')),
+    # path('merchant/', include(('halalmas.crm.objects.merchant.urls'))),
+    path('buildings/', include(('halalmas.crm.objects.building.urls', 'crm-buildings'), namespace='crm-buildings')),
+    path('company/', include(('halalmas.crm.objects.company.urls', 'crm-company'), namespace='crm-company')),
 
-    path('booking/', include(('tempatdotcom.crm.objects.booking.urls'))),
-    path('support/', include(('tempatdotcom.crm.objects.support.urls'))),
+    # path('booking/', include(('halalmas.crm.objects.booking.urls'))),
+    # path('support/', include(('halalmas.crm.objects.support.urls'))),
 ]

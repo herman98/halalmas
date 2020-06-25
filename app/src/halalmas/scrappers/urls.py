@@ -14,7 +14,7 @@ urlpatterns = [
         name='scrapper-detail-autocomplete',
         ),
 
-    path('pergikuiner/', include(('tempatdotcom.scrappers.pergikuliner.urls', 'pergikuliner'),
-                                 namespace='pergikuliner')),
+    # path('anekalogam/', include(('halalmas.scrappers.anekalogam.urls', 'anekalogam'),
+    #                              namespace='anekalogam')),
 
 ]

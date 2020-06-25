@@ -9,9 +9,9 @@ from functools import reduce
 from django.db.models import Q
 from django.conf import settings
 
-from tempatdotcom.server.hosts.happy_hour.models import BranchSaleProduct, Branch
-from tempatdotcom.core.utils.aws_s3_upload_service import S3_Services
-from tempatdotcom.crm.objects.merchant.happy_hours.serializers import ProductSaleDetailSerializers, ProductSaleSerializers
+from halalmas.server.hosts.happy_hour.models import BranchSaleProduct, Branch
+from halalmas.core.utils.aws_s3_upload_service import S3_Services
+from halalmas.crm.objects.merchant.happy_hours.serializers import ProductSaleDetailSerializers, ProductSaleSerializers
 
 AWS_PUBLIC_MEDIA_LOCATION = getattr(
     settings, 'AWS_PUBLIC_MEDIA_LOCATION', 'server/media_dev/public')
@@ -32,7 +32,7 @@ class ProductSaleServices():
             file_name = None
         else:
             file_path = f"{AWS_PUBLIC_MEDIA_LOCATION}/branch/{branch_id}/products/{files.name}" 
-            url = f'https://tempatdotcom.s3-ap-southeast-1.amazonaws.com/{file_path}'
+            url = f'https://halalmas.s3-ap-southeast-1.amazonaws.com/{file_path}'
             file_name = files.name
 
         # print(f'branch_id: {branch_id}')
@@ -58,14 +58,14 @@ class ProductSaleServices():
             is_open_price=True if body.get('is_open_price', False) == 'true' else False
         )
         create_product.save()
-        if files:
-            try:
-                from tempatdotcom.core.utils.branch_img_compress import compress_s3_image_from_url
-                compress_s3_image_from_url(url)
-                create_product.url = url
-                create_product.save()
-            except Exception as e:
-                print(e)
+        # if files:
+        #     try:
+        #         from halalmas.core.utils.branch_img_compress import compress_s3_image_from_url
+        #         compress_s3_image_from_url(url)
+        #         create_product.url = url
+        #         create_product.save()
+        #     except Exception as e:
+        #         print(e)
 
         return create_product
 
@@ -99,7 +99,7 @@ class ProductSaleServices():
             file_name = None
         else:
             file_path = f"{AWS_PUBLIC_MEDIA_LOCATION}/branch/{branch_id}/products/{files.name}" 
-            url = f'https://tempatdotcom.s3-ap-southeast-1.amazonaws.com/{file_path}'
+            url = f'https://halalmas.s3-ap-southeast-1.amazonaws.com/{file_path}'
             file_name = files.name
 
         if files:
@@ -126,12 +126,12 @@ class ProductSaleServices():
 
         update_product = product_sale.update(**payload)
         
-        if files: 
-            try:
-                from tempatdotcom.core.utils.branch_img_compress import compress_s3_image_from_url
-                compress_s3_image_from_url(payload['picture_url'])
-            except Exception as e:
-                print(e)
+        # if files: 
+        #     try:
+        #         from halalmas.core.utils.branch_img_compress import compress_s3_image_from_url
+        #         compress_s3_image_from_url(payload['picture_url'])
+        #     except Exception as e:
+        #         print(e)
 
     def delete_product_service(self, product_id):
         product_sale = self.qs.objects.filter(id=product_id, delstatus=False).first()

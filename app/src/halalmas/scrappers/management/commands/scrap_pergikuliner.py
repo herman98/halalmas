@@ -5,7 +5,7 @@ from django.conf import settings
 from django.core.management.base import BaseCommand, CommandError
 from django.contrib.gis.geos import Point
 
-from tempatdotcom.core.utils.pergikuliner_scrapper import WebScrapping
+from halalmas.core.utils.pergikuliner_scrapper import WebScrapping
 
 
 class ScrappedData(object):

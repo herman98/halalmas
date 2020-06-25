@@ -4,5 +4,5 @@ from django.apps import AppConfig
 
 
 class ApiConfig(AppConfig):
-    name = 'tempatdotcom.api'
-    verbose_name = 'tempat.com Server REST API for Frontend and mobile app'
+    name = 'halalmas.api'
+    verbose_name = 'halalmas.marikoding.com Server REST API for Frontend and mobile app'

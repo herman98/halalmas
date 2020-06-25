@@ -2,7 +2,7 @@ from django.db import models
 # from django.utils.safestring import mark_safe
 from cuser.fields import CurrentUserField
 
-from tempatdotcom.server.models import TimeStampedModel
+from halalmas.server.models import TimeStampedModel
 
 
 class WebScrapper(TimeStampedModel):

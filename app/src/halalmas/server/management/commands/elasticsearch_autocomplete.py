@@ -1,5 +1,5 @@
 from django.core.management.base import BaseCommand, CommandError
-from tempatdotcom.api.service.elasticsearch.es_index.autocomplete import ESIndexAutocomplete
+from halalmas.api.service.elasticsearch.es_index.autocomplete import ESIndexAutocomplete
 
 class Command(BaseCommand):
     help = 'Auto complete re index for elasticsearch'

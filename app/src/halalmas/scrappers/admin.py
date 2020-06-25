@@ -6,10 +6,10 @@ from dal import autocomplete
 from django import forms
 from django.contrib import admin
 
-from tempatdotcom.core.forms import AutocompleteWidget
+from halalmas.core.forms import AutocompleteWidget
 from .models import WebScrapper, WebScrapperDetail
 
-from .pergikuliner.admin import *
+# from .anekalogam.admin import *
 
 
 class WebScrapperModelForm(forms.ModelForm):

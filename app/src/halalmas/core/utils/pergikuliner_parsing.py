@@ -9,39 +9,39 @@ from datetime import datetime
 from time import sleep
 from django.utils.text import slugify
 
-from tempatdotcom.core.utils.aws_s3_upload import UploadToS3
-from tempatdotcom.scrappers.pergikuliner.models import (
+from halalmas.core.utils.aws_s3_upload import UploadToS3
+from halalmas.scrappers.pergikuliner.models import (
     WebScrapPergiKuliner,
     WebScrapPergiKulinerImage,
     WebScrapPergiKulinerRnR,
     WebScrapPergiKulinerRnRImage)
-from tempatdotcom.server.hosts.brands.models import (
+from halalmas.server.hosts.brands.models import (
     Brand)
-from tempatdotcom.server.hosts.branches.models import (
+from halalmas.server.hosts.branches.models import (
     Branch, BranchTypes,
     BranchFacility,
     BranchImages,
     BranchActivity,
     BranchTags)
-from tempatdotcom.server.objects.buildings.models import (
+from halalmas.server.objects.buildings.models import (
     Building, PublicTransport, BuildingCategory
 )
-from tempatdotcom.server.features.branch_rnr.models import (
+from halalmas.server.features.branch_rnr.models import (
     BranchRatingReviews,
     BranchRatingReviewUserProfiles,
     BranchRatingReviewDetails,
     BranchRatingReviewPhotos
 )
-from tempatdotcom.server.features.ratings_and_reviews.models import (
+from halalmas.server.features.ratings_and_reviews.models import (
     RatingReviewMasters, RatingReviewActivity
 )
-# from tempatdotcom.server.members.profiles.models import(
+# from halalmas.server.members.profiles.models import(
 #     CustomerUserRole, CustomerUserProfile
 # )
-from tempatdotcom.server.objects.facilities.models import Facility
-from tempatdotcom.server.objects.tags.models import Tag, TagGroup
-from tempatdotcom.server.hosts.activities.models import ActivityGroup
-from tempatdotcom.server.hosts.operational_hours.models import BranchOperationalHour
+from halalmas.server.objects.facilities.models import Facility
+from halalmas.server.objects.tags.models import Tag, TagGroup
+from halalmas.server.hosts.activities.models import ActivityGroup
+from halalmas.server.hosts.operational_hours.models import BranchOperationalHour
 
 from .host_fuctions import HostFuncTools
 from .branch_img_compress import BranchImageCompressor
@@ -1201,7 +1201,7 @@ class PergikulinerParsetoTempat(object):
 
             for id_, item_img in enumerate(branch_img_list):
                 print(f'item_img: {item_img.image_url}')
-                # url_input = 'https://tempatdotcom.s3-ap-southeast-1.amazonaws.com/server/media/branch/1000/picture-1450443521.jpg'
+                # url_input = 'https://halalmas.s3-ap-southeast-1.amazonaws.com/server/media/branch/1000/picture-1450443521.jpg'
                 url_input = item_img.image_url
                 img_size = cls_img_compress.get_img_from_url(url_input)
                 file_nm, s3_path = cls_img_compress.compress_and_upload_to_s3()
@@ -1239,7 +1239,7 @@ class PergikulinerParsetoTempat(object):
 
             for id_, item_img in enumerate(branch_img_list):
                 print(f'item_img: {item_img.img_url}')
-                # url_input = 'https://tempatdotcom.s3-ap-southeast-1.amazonaws.com/server/media/branch/1000/picture-1450443521.jpg'
+                # url_input = 'https://halalmas.s3-ap-southeast-1.amazonaws.com/server/media/branch/1000/picture-1450443521.jpg'
                 url_input = item_img.img_url
                 img_size = cls_img_compress.get_img_from_url(url_input)
                 file_nm, s3_path = cls_img_compress.compress_and_upload_to_s3()
@@ -1277,7 +1277,7 @@ class PergikulinerParsetoTempat(object):
 
             for id_, item_img in enumerate(branch_img_list):
                 print(f'item_img: {item_img.avatar}')
-                # url_input = 'https://tempatdotcom.s3-ap-southeast-1.amazonaws.com/server/media/branch/1000/picture-1450443521.jpg'
+                # url_input = 'https://halalmas.s3-ap-southeast-1.amazonaws.com/server/media/branch/1000/picture-1450443521.jpg'
                 url_input = item_img.avatar
                 img_size = cls_img_compress.get_img_from_url(url_input)
                 file_nm, s3_path = cls_img_compress.compress_and_upload_to_s3()

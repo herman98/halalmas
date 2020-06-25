@@ -4,5 +4,5 @@ from django.apps import AppConfig
 
 
 class CRMConfig(AppConfig):
-    name = 'tempatdotcom.crm'
-    verbose_name = 'tempat.com Server for tempat dot com CRM System'
+    name = 'halalmas.crm'
+    verbose_name = 'halalmas.marikoding.com Server for halalmas dot com CRM System'

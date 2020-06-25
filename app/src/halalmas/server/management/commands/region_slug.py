@@ -3,9 +3,9 @@ import logging
 from django.utils.text import slugify
 from django.core.management.base import BaseCommand, CommandError
 
-from tempatdotcom.server.objects.indonesia.models import ( KelurahanBorder,
+from halalmas.server.objects.indonesia.models import ( KelurahanBorder,
     KecamatanBorder, ProvinsiBorder, KabupatenBorder)
-from tempatdotcom.server.objects.world.models import WorldBorder
+# from halalmas.server.objects.world.models import WorldBorder
 
 
 class SlugifyFieldGenerator(object):
@@ -64,14 +64,15 @@ class SlugifyFieldGenerator(object):
             print(f'-no data found-')
     
     def country(self):
-        data_obj = WorldBorder.objects.filter(delstatus=False)
-        if data_obj.count() >= 1:
-            for idx, item in enumerate(data_obj):
-                item.slug = slugify(item.name) if item.name else ''
-                item.save()
-                print(f'#{idx} {item.name}')
-        else:
-            print(f'-no data found-')
+        # data_obj = WorldBorder.objects.filter(delstatus=False)
+        # if data_obj.count() >= 1:
+        #     for idx, item in enumerate(data_obj):
+        #         item.slug = slugify(item.name) if item.name else ''
+        #         item.save()
+        #         print(f'#{idx} {item.name}')
+        # else:
+        #     print(f'-no data found-')
+        return "OK"
 
 
     def convert(self):

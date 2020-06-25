@@ -3,7 +3,7 @@ import logging
 from django.conf import settings
 from django.core.management.base import BaseCommand, CommandError
 
-from tempatdotcom.core.services.happy_hour.branch_hh_status import BranchHappyHourStatus
+from halalmas.core.services.happy_hour.branch_hh_status import BranchHappyHourStatus
 
 
 class Command(BaseCommand):

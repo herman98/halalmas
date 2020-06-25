@@ -8,7 +8,7 @@
 # from celery.task import periodic_task
 # from celery.utils.log import get_task_logger
 
-# from tempatdotcom.core.utils.currency_scraper import CurrencyScrappingFromBI
+# from halalmas.core.utils.currency_scraper import CurrencyScrappingFromBI
 # from .currencies.models import Currency
 
 # logger = get_task_logger(__name__)

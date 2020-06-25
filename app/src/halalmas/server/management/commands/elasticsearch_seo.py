@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand, CommandError
-from tempatdotcom.api.service.elasticsearch.es_index.seo_true import SEO
-from tempatdotcom.server.hosts.branches.models import (
+from halalmas.api.service.elasticsearch.es_index.seo_true import SEO
+from halalmas.server.hosts.branches.models import (
 	Branch)
 
 class Command(BaseCommand):

@@ -1,1 +1,1 @@
-from tempatdotcom.crm.objects.dashboard.models import *
+from halalmas.crm.objects.dashboard.models import *
