@@ -1,0 +1,411 @@
+{% extends "common/theme1/list/list_footable_theme1.html" %}
+
+{% load model template default unit %}
+{% load ifusergroup from common %}
+
+{% block meta %}
+    <!-- remarked if for production -->
+    <!-- <meta http-equiv="refresh" content="3" > -->
+{% endblock %}
+
+{% block breadcrumb_title %}Data User/Pengguna CMS  {% endblock %}
+{% block breadcrumb_path %}
+    <li><a href="#">Data User/Pengguna CMS </a></li>
+    <li class="active">Seluruhnya</li>
+{% endblock %}
+ 
+{% block list_title %}Data User/Pengguna CMS{% endblock %}
+{% block list_subtitle %}Silahkan masukan data pencarian 
+{% endblock %}
+{% block title_button %}
+{% endblock %}
+
+{% block content-list %}
+
+<div class="row">
+  <div class="col-lg-10 col-md-10 col-xs-12">
+    {% search_form_app form_search obj_search "All Data" err_msg %}
+  </div>
+  <div class="col-lg-2 col-md-2 col-xs-12 text-center m-t-20">
+    {% ifusergroup admin %}
+      <button class="btn btn-success btn-rounded m-b-5" data-toggle="modal" data-target="#add-user-modal">
+        <i class="fa fa-plus"></i> Add CMS User
+      </button> 
+    {% endifusergroup %}
+</div>
+
+
+  <table id="demo-foo-row-toggler" class="table toggle-circle table-hover">
+    <thead>
+      <tr>
+        <th data-toggle="true"> No </th>
+        <th> Email </th>
+        <th data-toggle="true"> Nama Lengkap </th>
+        <th data-hide="phone"> Commission rate </th>
+        <th data-hide="phone"> Phone </th>
+        <th data-hide="all"> Detail </th>
+        <th data-hide="phone" data-sort-ignore="true" class="min-width text-center">
+            Actions
+        </th>
+      </tr>
+    </thead>
+    <div class="form-inline padding-bottom-15">
+      <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12 hidden-xs">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6 col-xs-12 hidden-xs">
+        </div>
+      </div>
+    </div>
+    <tbody>
+      {% if object_list %}
+        {% for object in object_list %}
+          <tr>
+            <td>{% increment_counter_one forloop.counter0 page_obj.number results_per_page %}</td>
+            <td>
+              <a href="#">
+                {{ object.username|default:"-"|safe}}<br/>
+              </a>
+              {{ object.id_building.name|default:"-"|safe}}
+            </td>
+            <td>
+                {{ object.name|default:"-"|safe}}
+            </td>
+            <td>
+                {{ object.commission_rate|default:""|safe}} %
+            </td>
+            <td>
+                {{ object.phone_number_1|default:"-"|safe}} : {{ object.phone_number_2|default:"-"|safe}}
+            </td>
+            <td>
+                {% include "object/cms_user/include/td_data.html" %}
+            </td>
+            <td class='text-center'>
+                  <!-- <a href="" title='detail'> -->
+                    <button class="btn btn-warning btn-rounded m-b-5" data-toggle="modal" data-target="#change-pwd-modal" data-salt="{{object.salt}}" data-fullname="{{object.name}}" data-phone="{{object.phone_number_1}}" data-email="{{object.username}}">
+                      <i class="fa fa-key fa-fw"></i>Change Password
+                    </button>
+                  <!-- </a> -->
+              </td>
+          </tr>
+        {% endfor %}
+      {% else %}
+          <tr>
+              <td colspan=8 class='center'>Kosong - Tidak ada Data</td>
+          </tr>
+      {% endif %}
+      
+    </tbody>
+  </table>
+  <tfoot>
+    <tr>
+      <td colspan="5"><div class="text-right">
+          {% pagination2 is_paginated paginator page_obj q 4 %}
+        </div>
+      </td>
+    </tr>
+  </tfoot>
+ 
+{% endblock %}
+
+{% block content-additional %}
+
+  {% include 'object/cms_user/include/chg_pwd_modals.html' %}
+  {% include 'object/cms_user/include/add_user_modals.html' %}
+
+{% endblock %}
+
+{% block script_bottom_inside %}
+  function clearSearchForm(){
+    $("#id_search_q").val('');
+    //$("#id_status_app").val([]);
+    $("#id_status_now_1").val([]);
+    $("#id_status_now_0").val([]);
+    check_bebas_selected();
+    try{
+        document.getElementById('id_err_msg').innerHTML='';
+    }
+    catch(err) {
+    }
+  }
+    function goBack() {
+        window.history.back();
+    }       
+
+  function check_bebas_selected(){
+    //console.log("check_bebas_selected");
+    var status = $("#id_status_now_1").is(':checked');
+    if (status==true){
+        $("#id_toggle_tgl_entry").toggle(true);
+    }else{
+        $("#id_toggle_tgl_entry").toggle(false);
+    }
+  }
+  function check_priode_selected(){
+    //console.log("check_priode_selected");
+    var status_0 = $("#id_status_now_0").is(':checked');
+    var status_1 = $("#id_status_now_1").is(':checked');
+    if (status_0==true || status_1==true){
+      //$("#id_pencarian_tgl").show(true);
+    }
+  }
+
+  window.onload = function() {
+      var ex1 = document.getElementById('id_status_now_0');
+      var ex2 = document.getElementById('id_status_now_1');
+      ex1.onclick = handler_0;
+      ex2.onclick = handler_1;
+      
+      // disabled tgl start and end
+      check_bebas_selected();
+      check_priode_selected();
+  }
+  function handler_0() {
+      // console.log('clicked 0');
+      var status = $("#id_status_now_0").is(':checked');
+      if (status==true){
+        $("#id_toggle_tgl_entry").toggle(false);
+      }
+  }
+  function handler_1() {
+      //console.log('clicked 1');
+      check_bebas_selected();
+  }  
+
+  // Daterange picker
+  $('.input-daterange-timepicker').daterangepicker({
+      timePicker: true,
+      format: 'DD/MM/YYYY H:mm',
+      timePickerIncrement: 5,
+      timePicker12Hour: true,
+      timePickerSeconds: false,
+      buttonClasses: ['btn', 'btn-sm'],
+      applyClass: 'btn-danger',
+      cancelClass: 'btn-inverse'
+  });
+      
+  $(document).ready(function() {
+      init_select_roles();
+
+      // Executes when the HTML document is loaded and the DOM is ready
+      //alert("Document is ready");
+      /*
+      $('#mnu_dashboard_li a:first').removeClass('active');
+      $('#{{nav_menu}}').addClass('active');
+      $('#{{nav_menu}} a:first').addClass('active');
+      $('#{{nav_submenu}}').addClass('active');
+      $('#{{nav_subsubmenu}}').addClass('active');
+      */
+  });
+
+  function init_select_roles(){
+    var select = $("#id_select_roles")
+    var data = {{cms_roles_obj|safe}}
+
+    data.forEach(function(role, index) {
+        //console.log(role, index);
+        var opt = document.createElement('option');
+        opt.innerHTML = role[1];
+        opt.value = role[0];
+        select.append(opt);
+    });
+  }
+  /*
+  $('#id_select_roles').on('change', function(e) {
+    var selected_val = $('#id_select_roles :selected').val();
+    console.log(selected_val);
+  });
+  */
+  function init_changes_pwd_modals(){
+    $("#id_error_ajax").addClass("hidden");
+    $("#id_div_pwd").removeClass("has-error");
+    $("#id_div_retype_pwd").removeClass("has-error");
+    $("#cms_new_pwd1").val('');
+    $("#cms_new_pwd2").val('');
+  }
+
+  $('#btn_alert_close').on('click', function(e) {
+    init_changes_pwd_modals();
+  });
+
+  //triggered when modal is about to be shown
+  $('#change-pwd-modal').on('show.bs.modal', function(e) {
+      //get data-id attribute of the clicked element
+      var salt = $(e.relatedTarget).data('salt');
+      var name = $(e.relatedTarget).data('fullname');
+      var phone = $(e.relatedTarget).data('phone');
+      var username = $(e.relatedTarget).data('email');
+      
+      //console.log(salt, name, phone, username);
+
+      //populate the textbox
+      $("#cms_username").text( username );
+      $("#cms_salt").val( salt );
+      $("#cms_fullname").val( name );
+      $("#cms_phone_no").val( phone );
+
+      init_changes_pwd_modals();
+  });
+
+  function change_pwd(){
+    //check using ajax
+    var csrftoken = getCookie('csrftoken');
+    var new_pwd1 = $("#cms_new_pwd1").val();
+    var new_pwd2 = $("#cms_new_pwd2").val();
+    var salt = $("#cms_salt").val();
+    var name = $("#cms_fullname").val();
+    var phone = $("#cms_phone_no").val();
+    
+    //console.log("change_pwd called:");
+    //console.log(salt, name, phone);
+
+    $.ajax({
+      url :  "{%url 'cms_user:change_passwd' %}", // the endpoint
+      type : "GET", // http method
+      data : { salt: salt,
+               name: name,
+               phone_number_1: phone,
+               new_password1: new_pwd1,
+               new_password2: new_pwd2,
+               csrfmiddlewaretoken: csrftoken,
+              }, // data sent with the get request
+
+      // handle a successful response
+      success : function(json) {
+          //console.log(json); // log the returned json to the console
+          if (json.result == "successful!"){
+            console.log(json.output);
+            $("#cms_new_pwd1").val('');
+            $("#cms_new_pwd2").val('');
+            $("#change-pwd-modal").modal('hide');
+            $("#change-pwd-modal-success").modal('show');
+            location.reload();
+          }
+          else {
+            //failed
+            console.log(json.reason);
+            $("#id_error_ajax").removeClass("hidden");
+            $("#id_error_ajax_msg").text(json.reason);
+
+            $("#id_div_pwd").addClass("has-error");
+            $("#id_div_retype_pwd").addClass("has-error");
+          }
+      },
+
+      // handle a non-successful response
+      error : function(xhr,errmsg,err) {
+          // provide a bit more info about the error to the console
+          console.log(xhr.status + ": " + xhr.responseText); 
+          $("#id_error_ajax").removeClass("hidden");
+          $("#id_error_ajax_msg").text(xhr.status + ": " + xhr.responseText);
+      }
+    }); // end of ajax
+    
+  }//end of function
+
+  $('#btn_alert_add_close').on('click', function(e) {
+    $("#id_error_add_ajax").addClass("hidden");
+  });
+
+  $('#add-user-modal').on('show.bs.modal', function(e) {
+      $("#cms_add_username").val('');
+      $("#cms_add_fullname").val('');
+      $("#cms_add_phone_no").val('');
+      $("#cms_add_pwd1").val('');
+      $("#cms_add_pwd2").val('');
+      //reset select
+      //$('#id_select_roles :selected').val('');
+      document.getElementById("id_select_roles").options[0].selected = 'selected';
+  });
+
+  function add_user_cms(){
+    //check using ajax
+    var csrftoken = getCookie('csrftoken');
+    var role_selected = $('#id_select_roles :selected').val();
+    if(role_selected=='--Select your Roles--'){
+      role_selected=-1;
+    }
+    console.log("add_user_cms called:", role_selected);
+
+    $.ajax({
+      url :  "{%url 'cms_user:add_cms_user' %}", // the endpoint
+      type : "GET", // http method
+      data : { username: $("#cms_add_username").val(),
+               roles: role_selected,
+               name: $("#cms_add_fullname").val(),
+               phone_number_1: $("#cms_add_phone_no").val(),
+               new_password1: $("#cms_add_pwd1").val(),
+               new_password2: $("#cms_add_pwd2").val(),
+               csrfmiddlewaretoken: csrftoken,
+              }, // data sent with the get request
+
+      // handle a successful response
+      success : function(json) {
+          console.log(json); // log the returned json to the console
+          if (json.result == "successful!"){
+            console.log(json.output);
+            $("#add-user-modal").modal('hide');
+            $("#add-user-modal-success").modal('show');
+            location.reload();
+          }
+          else {
+            //failed
+            console.log(json.reason);
+            $("#id_error_add_ajax").removeClass("hidden");
+            $("#id_error_add_msg").text(json.reason);
+          }
+      },
+
+      // handle a non-successful response
+      error : function(xhr,errmsg,err) {
+          // provide a bit more info about the error to the console
+          console.log(xhr.status + ": " + xhr.responseText); 
+          $("#id_error_add_ajax").removeClass("hidden");
+          $("#id_error_add_msg").text(xhr.status + ": " + xhr.responseText);
+      }
+    }); // end of ajax
+    
+  }//end of function
+
+{% endblock %}
+
+
+{% block custom_link %}
+  <link href="/static/theme/plugins/bower_components/footable/css/footable.core.css" rel="stylesheet">
+  <link href="/static/theme/plugins/bower_components/bootstrap-select/bootstrap-select.min.css" rel="stylesheet" />
+
+  <!-- Page plugins css -->
+  <link href="/static/theme/plugins/bower_components/clockpicker/dist/jquery-clockpicker.min.css" rel="stylesheet">
+  <!-- Date picker plugins css -->
+  <link href="/static/theme/plugins/bower_components/bootstrap-datepicker/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css" />
+  <!-- Daterange picker plugins css -->
+  <link href="/static/theme/plugins/bower_components/timepicker/bootstrap-timepicker.min.css" rel="stylesheet">
+  <link href="/static/theme/plugins/bower_components/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+{% endblock %}
+
+
+{% block script_additional %}
+    
+
+    <!-- Plugin JavaScript -->
+    <script src="/static/theme/plugins/bower_components/moment/moment.js"></script>
+
+    <!-- Date Picker Plugin JavaScript -->
+    <script src="/static/theme/plugins/bower_components/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+    <!-- Date range Plugin JavaScript -->
+    <script src="/static/theme/plugins/bower_components/timepicker/bootstrap-timepicker.min.js"></script>
+    <script src="/static/theme/plugins/bower_components/bootstrap-daterangepicker/daterangepicker-xwork.js"></script>
+
+    <!-- Footable -->
+    <script src="/static/theme/plugins/bower_components/footable/js/footable.all.min.js"></script>
+    <script src="/static/theme/plugins/bower_components/bootstrap-select/bootstrap-select.min.js" type="text/javascript"></script>
+    
+    <!--FooTable init-->
+    <script src="/static/theme/nav-full/js/footable-init.js"></script>
+    <!--Style Switcher -->
+    <script src="/static/theme/plugins/bower_components/styleswitcher/jQuery.style.switcher.js"></script>
+
+
+{% endblock %}

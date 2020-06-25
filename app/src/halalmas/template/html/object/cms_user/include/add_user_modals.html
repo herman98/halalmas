@@ -1,0 +1,101 @@
+
+<!-- /.modal -->
+<div id="add-user-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">Add CMS User</h4> 
+            </div>
+            <div class="modal-body row">
+                <form>
+                    <div class='col-md-12 col-xs-12'>
+                        <div id="id_error_add_ajax" class="alert alert-danger hidden">
+                            <button type="button" class="close" id="btn_alert_add_close">&times;</button>
+                            <span id="id_error_add_msg">Error messages.</span>
+                        </div>
+                    </div>
+                    <div class='col-md-8 col-xs-12'>
+                        <div class="form-group">
+                            <label for="recipient-name" class="control-label">Email:</label>
+                            <div class="input-group"> 
+                                <span class="input-group-addon"><i class='fa fa-envelope'></i></span>
+                                <input type="text" placeholder="Email" class="form-control" id="cms_add_username">
+                            </div>
+                        </div>
+                    </div>
+                    <div class='col-md-4 col-xs-12'>
+                        <div class="form-group">
+                            <label for="recipient-name" class="control-label">Roles:</label>
+                            <div class="input-group"> 
+                                <select class="form-control" id="id_select_roles">
+                                  <option>--Select your Roles--</option>
+                              </select>
+                            </div>
+                        </div>
+                      
+                    </div>
+                    <div class='col-md-6 col-xs-12'>
+                        <div class="form-group">
+                            <label for="recipient-name" class="control-label">Fullname:</label>
+                            <div class="input-group"> 
+                                <span class="input-group-addon"><i class='fa fa-user'></i></span>
+                                <input type="text" placeholder="Full Name" class="form-control" id="cms_add_fullname"> 
+                            </div>
+                        </div>
+                    </div>
+                    <div class='col-md-6 col-xs-12'>
+                        <div class="form-group">
+                            <label for="recipient-name" class="control-label">Phone No:</label>
+                            <div class="input-group"> 
+                                <span class="input-group-addon"><i class='fa fa-phone'></i></span>
+                                <input type="text" placeholder="Phone Number" class="form-control" id="cms_add_phone_no"> 
+                            </div>
+                        </div>
+                    </div>
+                    <div class='col-md-6 col-xs-12'>
+                        <div class="form-group" id="id_div_pwd">
+                            <label for="recipient-name" class="control-label">Password:</label>
+                            <div class="input-group"> 
+                                <span class="input-group-addon"><i class='fa fa-key'></i></span>
+                                <input type="password" placeholder="New Password" class="form-control" id="cms_add_pwd1"> 
+                            </div>
+                        </div>
+                    </div>
+                    <div class='col-md-6 col-xs-12'>
+                        <div class="form-group" id="id_div_retype_pwd">
+                            <label for="recipient-name" class="control-label">RetypePassword:</label>
+                            <div class="input-group"> 
+                                <span class="input-group-addon"><i class='fa fa-key'></i></span>
+                                <input type="password" placeholder="Confirm" class="form-control" id="cms_add_pwd2" name="state-success"> 
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger waves-effect waves-light" onclick="add_user_cms()">Save</button>
+            </div>
+        </div>
+    </div>
+</div> 
+
+
+<!-- /.modal -->
+<div id="add-user-modal-success" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">Add CMS User:</h4> </div>
+            <div class="modal-body">
+                Your additional User has been success inserted...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div> 
+           

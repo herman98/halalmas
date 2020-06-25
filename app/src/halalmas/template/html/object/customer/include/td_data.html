@@ -1,0 +1,43 @@
+{% load unit %}
+
+<div class="row">
+	<div class="col-md-4 col-xs-6">
+		NPWP
+	</div>
+	<div class="col-md-8 col-xs-6">
+		: {{ object.npwp|default:"-"|safe}}
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-4 col-xs-6">
+		No. KTP
+	</div>
+	<div class="col-md-8 col-xs-6">
+		: {{ object.no_ktp|default:"-"|safe}}
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-4 col-xs-6">
+		Ada WA
+	</div>
+	<div class="col-md-8 col-xs-6">
+		: <strong> {{ object.has_wa|yesno:"Ya,Tidak"|default:"-"|safe}}</strong>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-4 col-xs-6">
+		Ada FB
+	</div>
+	<div class="col-md-8 col-xs-6">
+		: <strong> {{ object.has_fb|yesno:"Ya,Tidak"|default:"-"|safe}}</strong>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-4 col-xs-6">
+		Timestamps
+	</div>
+	<div class="col-md-8 col-xs-6">
+		: {{ object.cdate|date:"d-m-Y H:i"|default:"-"|safe}}
+	</div>
+</div>

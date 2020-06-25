@@ -1,0 +1,14 @@
+<li id="mnu_finance_report_li"> <a href="#" class="waves-effect"><i class="fa fa-gavel"></i>
+    <span class="hide-menu m-l-5"> Invoice<span class="fa arrow"></span></span>
+    </a>
+    <ul class="nav nav-second-level">
+      <li id="mnu_gen_ar_ap_li"> <a href="{% url 'invoice_mail:invoice_mail_list' %}" target="_blank">
+            <i class="fa fa-send-o"></i><span class="hide-menu m-l-5"> Send Invoice Email</span>
+        </a>
+      </li>
+      <li id="mnu_gen_ar_ap_li"> <a href="{% url 'invoice_mail:history_invoice' %}" target="_blank">
+            <i class="fa fa-history"></i><span class="hide-menu m-l-5"> History Sent Invoice</span>
+        </a>
+      </li>
+    </ul>
+</li>

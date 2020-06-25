@@ -1,0 +1,213 @@
+body {
+  margin: 0;
+}
+
+.header {
+  color: #333;
+  margin: 0px;
+  padding: 10px;
+  border: 1px solid;
+  border-left: none;
+  border-right: none;
+  width: 100%;
+  display: flex;
+}
+
+.header-logo-container {
+  width: 120px;
+}
+
+.header-search-container {
+  width: calc(100% - 120px);
+  padding: 0px 10px;
+  margin: -10px 0px;
+}
+
+input#searchTextField {
+  height: 52px;
+  margin: auto;
+  width: calc(100% + 20px);
+  padding-left: 20px;
+  border-top: none;
+  border-bottom: none;
+  border-left: 1px solid #333;
+  background: #eee;
+}
+
+/* Map */
+.map-container {
+  height: calc(100vh - 54px);
+  width: 100%;
+  display: none;
+}
+
+#map {
+  height: 100%;
+  width: 100%;
+}
+
+.marker-label {
+  font-size: 12px;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  z-index: -1;
+  border-radius: 20px;
+  background-color: white;
+  color: #333;
+  font-weight: bold;
+  width: 60px;
+  height: 17px;
+  line-height: 16px;
+  border: solid 1px #333;
+}
+
+.marker-label:after {
+  content: "";
+  position: absolute;
+  bottom: -15px;
+  left: 50px;
+  border-width: 15px 15px 0;
+  border-style: solid;
+  border-color: black transparent;
+  display: block;
+  width: 0;
+}
+
+.infowindow-image-container {
+  cursor: pointer;
+}
+
+.infoWindowContent {
+  font-size: 14px !important;
+  border-top: 1px solid #ccc;
+  padding-top: 10px;
+}
+
+.infowindow {
+  padding-top: 10px;
+}
+
+.infowindow .left {
+  padding-right: 10px;
+}
+
+.infowindow img {
+  border-radius: 0;
+  height: 90px;
+  width: 100%;
+}
+
+.infowindow h2 {
+  font-size: 15px;
+  margin-bottom: 5px;
+  margin-top: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  height: 55px;
+}
+
+.infowindow-address {
+  color: grey;
+  font-size: 12px;
+  margin-top: 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+.infowindow .meta {
+  color: #888;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.infowindow-image-thumb-container-wrapper {
+  width: 100%;
+  height: 45px;
+  overflow-x: auto;
+  display: flex;
+  flex-direction: row;
+}
+
+img.infowindow-image-thumb-container {
+  height: 30px;
+  width: 30px;
+  min-height: 30px;
+  min-width: 30px;
+  object-fit: cover;
+  margin-right: 2px;
+}
+
+
+/* Center the loader */
+#loader {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 1;
+  width: 150px;
+  height: 150px;
+  margin: -75px 0 0 -75px;
+  border: 16px solid #ffedb9;
+  border-radius: 50%;
+  border-top: 16px solid #ffda74;
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
+
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+
+/* Add animation to "page content" */
+.animate-bottom {
+  position: relative;
+  -webkit-animation-name: animatebottom;
+  -webkit-animation-duration: 2s;
+  animation-name: animatebottom;
+  animation-duration: 2s
+}
+
+@-webkit-keyframes animatebottom {
+  from { bottom:-54px; opacity:0 } 
+  to { bottom:0px; opacity:1 }
+}
+
+@keyframes animatebottom { 
+  from{ bottom:-54px; opacity:0 } 
+  to{ bottom:0; opacity:1 }
+}
+
+@media (max-width: 768px) {
+  .header-logo-container {
+    display: none;
+  }
+
+  .header-search-container {
+    padding-left: 0px;
+  }
+
+  .header {
+    padding: 10px 0px;
+  }
+  
+  input#searchTextField {
+    border-left: none;
+    width: calc(100% + 130px);
+  }
+}

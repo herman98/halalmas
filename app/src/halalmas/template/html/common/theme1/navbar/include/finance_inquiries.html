@@ -1,0 +1,28 @@
+<li id="mnu_application_li"> <a href="#" class="waves-effect"><i class="icon-folder"></i>
+    <span class="hide-menu m-l-10"> Inquiries<span class="fa arrow"></span></span>
+    </a>
+    <ul class="nav nav-second-level">
+      <li id="mnu_payment_partial_li"> <a href="{% url 'inquiry_convert:list-offline-convert' %}" target="_blank">
+        <span class="hide-menu"> Offline Receipt</span>
+        </a>
+      </li>
+      <li id="mnu_payment_partial_li"> <a href="{% url 'inquiry_convert:list-online-convert' %}"  target="_blank">
+        <span class="hide-menu"> Online Receipt</span>
+        </a>
+      </li>
+      <!-- <li id="mnu_payment_partial_li"> <a href="javascript:void(0);"  target="_blank">
+        <hr>
+        <span class="hide-menu"> Offline Bills</span>
+        </a>
+      </li> -->
+      <!-- <li id="mnu_payment_partial_li"> <a href="/admin/crm/crmorderreceiptimage/"  target="_blank">
+        <span class="hide-menu"> Lihat Bukti Transfer</span>
+        </a>
+      </li> -->
+      <li id="mnu_inq_list_9_li"> <a href="{% url 'inquiry:list' %}" target="_blank">
+        <hr>
+        <span class="hide-menu">List All Data </span>
+        </a>
+      </li>
+    </ul>
+</li>

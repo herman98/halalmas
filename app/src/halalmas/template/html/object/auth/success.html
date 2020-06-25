@@ -1,0 +1,21 @@
+{% extends "common/layout_master.html" %}
+
+
+{% block body %}
+
+	<div class="error-body text-center">
+      <h1>200</h1>
+      <h3 class="text-uppercase">Login Success!</h3>
+      <p class="text-muted m-t-30 m-b-30">YOU SEEM TO BE TRYING TO FIND HIS WAY HOME</p>
+      {% if user.is_authenticated %}
+	     <li>User: {{ user.get_username }}</li>
+	     <li><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>   
+	   {% else %}
+	     <li><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>   
+	   {% endif %} 
+      <a href="{% url 'welcome' %}" class="btn btn-info btn-rounded waves-effect waves-light m-b-40">Kembali ke beranda</a>
+      <a href="{% url 'logout' %}" class="btn btn-info btn-rounded waves-effect waves-light m-b-40">Logout</a>
+      </div>
+      
+{% endblock %}
+

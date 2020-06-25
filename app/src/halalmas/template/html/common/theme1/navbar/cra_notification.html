@@ -1,0 +1,89 @@
+<li class="dropdown"> <a class="dropdown-toggle waves-effect waves-light" data-toggle="dropdown" href="#"><i class="icon-bell" style="font-size: 20px;"></i>
+	<div class="notify">
+        {%if count_duration.cnt_h_min3d >= 1 %}
+            <span class="heartbit"></span><span class="point"></span>
+        {%elif count_duration.cnt_h_min7d >= 1 %}
+            <span class="heartbit"></span><span class="point"></span>
+        {%elif count_duration.cnt_h_min14d >= 1 %}
+            <span class="heartbit"></span><span class="point"></span>
+        {%else%}
+		{%endif%}
+	</div>
+	</a>
+	<ul class="dropdown-menu mailbox animated bounceInDown">
+	  <li>
+        {%if count_duration.cnt_h_min3d >= 1 %}
+            <div class="drop-title">
+                <a href="{% url 'inquiry:list_special' 'h-3-d' %}" target="_blank">
+                <span class="hide-menu">Inquiry -> H-3 to BD </span>
+                <span class="label label-rouded label-danger pull-right">{{count_duration.cnt_h_min3d}}</span>
+                </a>
+            </div>
+        {%endif%}
+        {%if count_duration.cnt_h_min7d >= 1 %}
+            <div class="drop-title">
+                <a href="{% url 'inquiry:list_special' 'h-7-d' %}" target="_blank">
+                <span class="hide-menu">Inquiry -> H-7 to BD </span>
+                <span class="label label-rouded label-warning pull-right">{{count_duration.cnt_h_min7d}}</span>
+                </a>
+            </div>
+        {%endif%}
+        {%if count_duration.cnt_h_min14d >= 1 %}
+            <div class="drop-title">
+                <a href="{% url 'inquiry:list_special' 'h-14-d' %}" target="_blank">
+                <span class="hide-menu">Inquiry -> H-14 to BD </span>
+                <span class="label label-rouded label-primary pull-right">{{count_duration.cnt_h_min14d}}</span>
+                </a>
+            </div>
+        {%endif%}
+        {%if count_duration.cnt_h_min1m >= 1 %}
+            <div class="drop-title">
+                <a href="{% url 'inquiry:list_special' 'h-1-m' %}" target="_blank">
+                <span class="hide-menu">Inquiry -> H-30 to BD </span>
+                <span class="label label-rouded label-success pull-right">{{count_duration.cnt_h_min1m}}</span>
+                </a>
+            </div>
+        {%endif%}
+
+	  </li>
+	  <li>
+	    <div class="message-center">
+	    
+	    </div>
+	  </li>
+	  <li> <a class="text-center" href="{% url 'inquiry:list' %}"> <strong>see all inquiry</strong> <i class="fa fa-angle-right"></i> </a></li>
+	</ul>
+	<!-- /.dropdown-messages -->
+</li>
+<li class="dropdown"> <a class="dropdown-toggle waves-effect waves-light" data-toggle="dropdown" href="#"><i class="fa fa-sticky-note-o" style="font-size: 20px;"></i>
+	<div class="notify">
+		{% if orders.today or orders.week or orders.month %}
+			<span class="heartbit"></span><span class="point"></span>
+		{%endif%}
+	</div>
+	</a>
+	<ul class="dropdown-menu mailbox animated bounceInDown">
+	  <li>
+			<a href="/crm/order_receipt/list/hourly?filter=today">
+				<div class="drop-title">Receipts today
+						<span class="label label-rouded label-danger pull-right">
+							{{orders.today}}
+				</div>
+			</a>
+			<a href="/crm/order_receipt/list/hourly?filter=week">
+				<div class="drop-title">Receipts week
+						<span class="label label-rouded label-danger pull-right">
+							{{orders.week}}
+				</div>
+			</a>
+			<a href="/crm/order_receipt/list/hourly?filter=month">
+				<div class="drop-title">Receipts month
+						<span class="label label-rouded label-danger pull-right">
+							{{orders.month}}
+				</div>
+			</a>
+	  </li>
+	  <li> <a class="text-center" href="{% url 'order_receipt:list-hourly-order' %}"> <strong>see all Booking Receipts</strong> <i class="fa fa-angle-right"></i> </a></li>
+	</ul>
+	<!-- /.dropdown-messages -->
+</li>

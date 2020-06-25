@@ -1,0 +1,131 @@
+sudo add-apt-repository ppa:jonathonf/python-3.6
+sudo apt-get update
+sudo apt-get install python3.6
+
+virtualenv -p python3.6 <env-name>
+source <env-name>/bin/activate
+
+sudo apt-get install postgresql postgis postgresql-contrib
+
+sudo -u postgres psql
+
+ALTER USER postgres WITH ENCRYPTED PASSWORD 'password';
+sudo vim  /etc/postgresql/9.5/main/pg_hba.conf
+https://www.calhoun.io/how-to-install-postgresql-9-5-on-ubuntu-16-04/
+
+
+
+--- Running on local ---
+A. Setting database
+1. Running docker
+   - installing postgis container from https://hub.docker.com/r/mdillon/postgis/
+     docker run -p 5432:5432 --name postgis -e POSTGRES_PASSWORD=password -e POSTGRES_USER=root -e POSTGRES_DB=geodjango -d mdillon/postgis
+
+   - do checker
+     $ docker image ls
+     $ docker ps -a 
+     $ docker start <container-id>
+     $ docker stop <container-id> # to deactivate the docker container
+
+2. test connection into database
+    $ psql -h localhost -p 5432 -U root -d geodjango -W
+      - password: password
+
+3. create database on postgres+docker
+    - Create New Database
+      $ create database halalmas;
+    - Switch into new database
+      $ \c halalmas or \CONNECT halalmas
+      - password: password
+    - add postgis EXTENSION into new database
+      $ CREATE EXTENSION postgis;
+    - DATABASE ready to connect into WebApp
+
+
+B. Setting Broker : RabbitMQ
+1. Start up the message broker : https://hub.docker.com/_/rabbitmq
+    user:guest pwd:guest
+    $ docker run -d --hostname rabbithost -p 5672:5672 -p 15672:15672 --name rabbitmq rabbitmq:3.7.9-management
+    or
+    -e RABBITMQ_DEFAULT_VHOST=halalmas_vhost / my_vhost
+    $ docker run -d --hostname rabbithost -p 5672:5672 -p 15672:15672 --name rabbitmq -e RABBITMQ_DEFAULT_USER=user_rabbitmq -e RABBITMQ_DEFAULT_PASS=password rabbitmq:3.7.9-management
+
+    - do checker
+     $ docker image ls
+     $ docker ps -a 
+     $ docker start <container-id>
+     $ docker stop <container-id> # to deactivate the docker container
+
+2. Setting default user and password
+    If you wish to change the default username and password of guest / guest, you can do so with the RABBITMQ_DEFAULT_USER and RABBITMQ_DEFAULT_PASS environmental variables:
+
+C. Setting Celery
+    In this directory and highly recommended in a Python virtual environment, run
+    ```
+    # Install dependencies
+    pip install -r requirements/local.pip
+
+    # Start celery
+    ./run_celery
+    or
+    $ celery --app=halalmas worker -E --beat --loglevel=DEBUG -B -l info --logfile=halalmas_celery.log
+    ```
+
+    testing:
+    celery --app=halalmas worker --beat --loglevel=DEBUG --logfile=halalmas_celery.log
+    celery --app=halalmas worker --beat  --loglevel=DEBUG --scheduler django_celery_beat.schedulers:DatabaseScheduler --logfile=halalmas_celery.log
+    celery --app=halalmas worker --beat  --loglevel=DEBUG --scheduler django_celery_beat.schedulers:DatabaseScheduler --logfile=halalmas_celerybeat.log
+    celery --app=halalmas worker -E -B --beat --loglevel=INFO --scheduler django_celery_beat.schedulers:DatabaseScheduler --logfile=halalmas_celery.log 
+
+    # celery-beat for periodic task
+    # celery -A proj beat -l info --scheduler django_celery_beat.schedulers:DatabaseScheduler
+    celery --app=halalmas beat --loglevel=DEBUG --scheduler django_celery_beat.schedulers:DatabaseScheduler --logfile=halalmas_celerybeat.log
+    celery --app=halalmas worker -E --beat --loglevel=DEBUG -B -l info --logfile=halalmas_celery.log
+
+    how-to:
+    http://docs.celeryproject.org/en/master/django/first-steps-with-django.html
+    http://docs.celeryproject.org/en/latest/userguide/periodic-tasks.html
+    https://github.com/celery/celery/tree/master/examples/django/
+
+    $ python ./manage.py shell
+    >>> from demoapp.tasks import add, mul, xsum
+    >>> res = add.delay(2,3)
+    >>> res.get()
+    5
+
+   ## CELERY BEAT ####
+   https://github.com/celery/django-celery-beat
+   http://docs.celeryproject.org/en/latest/userguide/periodic-tasks.html
+
+D. Setting Django
+    In this directory and highly recommended in a Python virtual environment, run
+    ```
+    # Install dependencies
+    pip install -r requirements/local.pip
+
+    # Load django configs from env vars
+    source ./postactivate
+
+    # Create the database tables and initial data
+    python manage.py migrate
+
+    # Create the application's super user
+    python manage.py createsuperuser
+
+    # Start the application
+    python manage.py runserver
+    ```
+
+E. Deployment
+    https://celeryq.com/blog/django-celery-nginx-uwsgi-deployment/
+
+F. django jwt
+   https://github.com/Humanitec/django-oauth-toolkit-jwt
+  
+G. Celery Flower
+   https://flower.readthedocs.io/en/latest/install.html
+
+   flower -A halalmas --port=5555
+   celery flower -A halalmas --address=127.0.0.1 --port=5555
+
+   celery flower -A halalmas --broker=amqp://user_rabbitmq:password@localhost//

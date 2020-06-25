@@ -1,0 +1,58 @@
+{% extends "common/theme1/layout_admin.html" %}
+
+{% block custom_script_inside %}
+    {% include "common/theme1/react_source.html" %}
+{% endblock %}
+
+{% block custom_css %}
+    <link rel="stylesheet" href="/static/create_edit_brand_holding.css">
+{% endblock %}	
+
+{% block script_head %}
+	<script>
+	</script>
+{% endblock %}
+
+{% block inside_body %}
+<!-- Preloader -->
+<div class="preloader">
+  <div class="cssload-speeding-wheel"></div>
+</div>
+<div>
+    <input id='csrf' type="hidden" value="{{csrf_token}}"></input>
+    <input id='type' type="hidden" value="{{type}}"></input>    
+    <div id="page-wrapper">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="white-box" style="margin-bottom: 0">
+                    {% if type == 'edit' %}
+                        <input id='time_slot_id' type="hidden" value="{{time_slot_id}}"></input>
+                        <input id='branch_id' type="hidden" value="{{branch_id}}"></input>
+                        <input id='branch_name' type="hidden" value="{{branch.branch_name}}"></input>
+                        <h3 className="box-title m-b-0">Edit Company</h3>
+                        <p className="text-muted m-b-30">{{company.name}}</p>
+                    {% elif type == 'create' %}
+                        <input id='branch_id' type="hidden" value="{{branch_id}}"></input>
+                        <input id='branch_name' type="hidden" value="{{branch.branch_name}}"></input>
+                        <h3 className="box-title m-b-0">Create Company</h3>
+                    {% endif %}
+                    <div id="react-kompeni"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
+
+{% block script_additional %}
+    <script src="/static/object/company/Context.jsx" type="text/babel"></script>
+    <script src="/static/object/company/index.jsx" type="text/babel"></script>
+{% endblock %}
+
+{% block script_bottom_inside %}
+
+{% endblock %}	
+	
+	

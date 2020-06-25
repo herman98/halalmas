@@ -1,0 +1,5 @@
+{% load unit %}
+
+Commision Rate : {{ object.commission_rate|default:"-"|safe}} %<br/>
+Remark :{{ object.remark|default:"-"|safe}}<br/>
+Last Login :{{ object.last_login|default:"-"|safe}}

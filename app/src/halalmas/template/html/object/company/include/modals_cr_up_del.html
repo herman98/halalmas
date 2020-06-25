@@ -1,0 +1,112 @@
+
+<!-- /.modal -->
+<div id="modals-update" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog" id="modals-v-update">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">${title}</h4> 
+            </div>
+            <div class="modal-body row">
+                <form id="comp_update_form" role="form" method="POST">
+                    <div class='col-md-12 col-xs-12'>
+                        <div id="id_error_ajax" class="alert alert-danger hidden">
+                            <button type="button" class="close" id="btn_alert_close" v-on:click="btnAlertClose">&times;</button>
+                            <span id="id_error_ajax_msg">${err_message}</span>
+                        </div>
+                    </div>
+
+                    <div class='col-md-12 col-xs-12'>
+                        <div class="form-group">
+                            <label for="comp-name" class="control-label">Company Name:</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class='fa fa-building'></i></span>
+                                <input type="text" placeholder="Company Name" class="form-control" id="comp_name" v-model="currentCompany.name"> 
+                            </div>
+                        </div>
+                    </div>
+                    <div class='col-md-12 col-xs-12'>
+                        <div class="form-group">
+                            <label for="comp-name" class="control-label">Address:</label>
+                            <textarea class="form-control" name="comp_address" required="" cols="40" rows="5" id="comp_address" v-model="currentCompany.address" placeholder="Complete Address"></textarea>
+
+                        </div>
+                    </div>
+                    <div class='col-md-6 col-xs-12'>
+                        <div class="form-group">
+                            <label for="comp-area" class="control-label">Area:</label>
+                            <div class="input-group"> 
+                                <span class="input-group-addon"><i class='fa fa-location-arrow'></i></span>
+                                <input type="text" placeholder="Area" class="form-control" id="comp_area" v-model="currentCompany.area"> 
+                            </div>
+                        </div>
+                    </div>
+                    <div class='col-md-6 col-xs-12'>
+                        <div class="form-group" id="id_div_pwd">
+                            <label for="comp-position" class="control-label">City:</label>
+                            <div class="input-group"> 
+                                <span class="input-group-addon"><i class='fa fa-location-arrow'></i></span>
+                                <input type="text" placeholder="City" class="form-control" id="comp_city" v-model="currentCompany.city"> 
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+
+                <button type="button" 
+                  class="btn btn-danger waves-effect waves-light" 
+                  v-if="isUpdate"
+                  v-on:click="updateCompany">${submit_title}
+                </button>
+                <button type="button" 
+                  v-else
+                    v-on:click="addCompany" 
+                    class="btn btn-success waves-effect waves-light">
+                  ${submit_title}
+                </button>
+            </div>
+        </div>
+    </div>
+</div> 
+
+
+<!-- /.modal -->
+<div id="modals-success" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog" id="modals-v-success">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">${ title_success }</h4> </div>
+            <div class="modal-body">
+                ${ title_body }
+            </div>
+            <div class="modal-footer">
+                <button type="button"  
+                    class="btn btn-default waves-effect" data-dismiss="modal"
+                    v-on:click="reloadPage">Close</button>
+            </div>
+        </div>
+    </div>
+</div> 
+
+<div id="modals-delete" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;" >
+    <div class="modal-dialog" id="modals-v-delete">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">${ title_modals }</h4> </div>
+            <div class="modal-body">
+                ${ body_modals }
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+                <button type="button" 
+                    v-on:click="delCompany" 
+                    class="btn btn-success waves-effect waves-light">
+                  Delete
+                </button>
+            </div>
+        </div>
+    </div>
+</div> 

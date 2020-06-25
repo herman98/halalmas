@@ -1,0 +1,45 @@
+<div class="col-md-6 col-xs-12">
+    <div class="col-md-12 col-xs-12">
+    <div class="white-box">
+        <h3 class="box-title">20th Merchant with Happy Deals</h3>
+        <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th class="hidden-xs hidden-sm">ID</th>
+                <th style="width:30%;">Merchant Name</th>
+                <th class="hidden-xs hidden-sm">Slots</th>
+                <th class="hidden-xs hidden-sm text-center">Product <br/>
+                    <span class="label label-success">A</span>
+                    <span class="label label-info">D</span>
+                    <span class="label label-warning">O</span>
+                    <span class="label label-danger">C</span>
+                </th>
+                <th>HH-Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for object in data.merchant_w_happy_hour %}
+                <tr>
+                <td class="hidden-xs hidden-sm">{{object.id|safe}}</td>
+                <td><a href="{%url 'crm-branch:detail_branch' object.id %}" target="_blank"  class="btn-link"> {{object.branch_name|safe}}</a></td>
+                <td class="hidden-xs hidden-sm text-center">{{object.branchhappyhourslotheader_set.all.count|safe}}</td>
+                <td class="hidden-xs hidden-sm text-center">
+                    <span class="label label-success">{{object.branchsaleproduct_set.is_active.count|safe}}</span>
+                    <span class="label label-info">{{object.branchsaleproduct_set.is_deleted.count|safe}}</span>
+                    <span class="label label-warning">{{object.branchsaleproduct_set.is_open_price.count|safe}}</span>
+                    <span class="label label-danger">{{object.branchsaleproduct_set.is_close_price.count|safe}}</span>
+                </td>
+                <td>
+                    <a href="{%url 'crm-hh:hh-detail' object.id %}" target="_blank">
+                    <button class="btn btn-block btn-outline btn-rounded btn-success"><i class="fa fa-pencil fa-fw"></i> Edit
+                    </a>
+                </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        </div>
+    </div>
+    </div>
+</div>

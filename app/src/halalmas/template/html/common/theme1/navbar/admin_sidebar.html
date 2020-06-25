@@ -1,0 +1,37 @@
+{% load unit %}
+
+<!-- Left navbar-header -->
+  <div class="navbar-default sidebar" role="navigation" style="overflow: visible;">
+    <div class="slimScrollDiv" style="position: relative; overflow: visible; width: auto; height: 100%;">
+      <div class="sidebar-nav navbar-collapse" style="overflow: visible hidden; width: auto; height: 100%;">
+        <ul class="nav" id="side-menu">
+          <li class="sidebar-search hidden-sm hidden-md hidden-lg">
+            <!-- input-group -->
+            <div class="input-group custom-search-form">
+              <input type="text" class="form-control" placeholder="Cari...">
+              <span class="input-group-btn">
+              <button class="btn btn-default" type="button"> <i class="fa fa-search"></i> </button>
+              </span> </div>
+            <!-- /input-group -->
+          </li>
+          
+          {% include 'common/theme1/navbar/include/pindah_role.html' %}
+          
+          {% include 'common/theme1/navbar/include/django_admin.html' %}
+
+          {% include 'common/theme1/navbar/include/master_data.html' %}
+
+          {% include 'common/theme1/navbar/include/host_team_menu.html' %}
+
+          {% include 'common/theme1/navbar/include/booking.html' %}
+          
+          {% include 'common/theme1/navbar/include/rating_review.html' %}
+
+          {% include 'common/theme1/navbar/include/support.html' %}
+
+          {% include 'common/theme1/navbar/include/logout_menu.html' %}
+        </ul>
+      </div>
+    </div>
+  </div>
+  <!-- Left navbar-header end -->

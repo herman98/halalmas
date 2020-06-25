@@ -1,0 +1,186 @@
+{% extends "common/theme1/layout_theme1.html" %}
+  
+{% block custom_css %}
+  <!-- morris CSS -->
+  <!-- <link href="/static/theme/plugins/bower_components/morrisjs/morris.css" rel="stylesheet"> -->
+{% endblock %}  
+
+{% block script_head %}
+  <script>
+    /*
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  
+    ga('create', 'UA-19175540-9', 'auto');
+    ga('send', 'pageview');
+  */
+  </script>
+{% endblock %}
+
+
+{% block inside_body %}
+<!-- Preloader -->
+<div class="preloader">
+  <div class="cssload-speeding-wheel"></div>
+</div>
+
+<!-- Page Content -->
+  <div id="page-wrapper">
+    <div class="container-fluid">
+      <div class="row bg-title">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <h4 class="page-title text-center">MARKETING : RATING n REVIEW <span class="hidden-xs"> -  Dashboard</span></h4>
+        </div>
+        <!-- /.col-lg-12 -->
+      </div>
+      <!-- .row -->
+      <div class="row">
+        <div class="col-lg-3 col-sm-3 col-xs-12">
+          <div class="white-box analytics-info">
+            <h3 class="box-title">Total RnR</h3>
+            <ul class="list-inline two-part">
+              <li>
+                <div id="sparklinedash"></div>
+              </li>
+              <li class="text-right"><i class="ti-arrow-right text-success"></i> 
+                <span class="counter text-success">{{stat.total}}</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-lg-3 col-sm-3 col-xs-12">
+          <div class="white-box analytics-info">
+            <h3 class="box-title">Total Rooms <small>has RnR</small></h3>
+            <ul class="list-inline two-part">
+              <li>
+                <div id="sparklinedash2"></div>
+              </li>
+              <li class="text-right"><i class="ti-arrow-right text-purple"></i> <span class="counter text-purple">{{stat.total_rooms}}</span></li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-lg-3 col-sm-3 col-xs-12">
+          <div class="white-box analytics-info">
+            <h3 class="box-title">Total Users <small>RnR mail has been sent</small></h3>
+            <ul class="list-inline two-part">
+              <li>
+                <div id="sparklinedash3"></div>
+              </li>
+              <li class="text-right"><i class="ti-arrow-right text-info"></i> <span class="counter text-info">{{stat.total_users_has}}</span></li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-lg-3 col-sm-3 col-xs-12">
+          <div class="white-box analytics-info">
+            <h3 class="box-title">Total Users <small>not reviewed</small></h3>
+            <ul class="list-inline two-part">
+              <li>
+                <div id="sparklinedash4"></div>
+              </li>
+              <li class="text-right"><i class="ti-arrow-right text-danger"></i> <span class="text-danger">{{stat.total_users_not_has}}</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <!--/.row -->
+     
+      <!--/.row -->
+      <div class="row">
+        <div class="col-md-12">
+          <div class="white-box">
+            <h3 class="box-title">Today's Reviewer</h3>
+            <div class="table-responsive">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th>Reviewer</th>
+                    <th>UserType</th>
+                    <th width="20%">Room</th>
+                    <th>OrderNo</th>
+                    <th>Rating Score</th>
+                    <th width="30%">Review Msg</th>
+                    <th>Timestamp</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for object in today_reviewed%}
+                  <tr>
+                    <td>
+                      {% if object.ratingreviewuser_set.first.user_app %}
+                        {{object.ratingreviewuser_set.first.user_app.fullname|safe}}
+                      {% elif object.ratingreviewuser_set.first.user %}
+                        {{object.ratingreviewuser_set.first.user.fullname|safe}}
+                      {% else %}
+                        {{object.ratingmpackage_set.first.order.full_name|safe}}
+                      {% endif %}
+                    </td>
+                    <td>
+                      {% if object.ratingreviewuser_set.first.user_app %}
+                        MEMBER
+                      {% else %}
+                        GUEST
+                      {% endif %}
+                    </td>
+                    <td>
+                      {{object.room.name|safe }} <br/>
+                      Gedung: {{object.room.id_building.name|safe }}
+                    </td>
+                    <td>
+                      {{object.order_no|safe}} &nbsp;
+                      {% if object.ratinghourly_set %}
+                        - HOURLY
+                      {% elif object.ratingmpackage_set %}
+                        - PACKAGE
+                      {% else %}
+                         -
+                      {% endif %}
+                    </td>
+                    <td class="text-center" >
+                      {{object.rating}}
+                    </td>
+                    <td>
+                      Subject : {{object.subject}} <br>
+                      Review : <br>{{object.review}}
+                    </td>
+                    <td>
+                      {{object.created_at |date:"D, d M Y H:i"}}
+                    </td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+     
+    </div>
+    <!-- /.container-fluid -->
+  </div>
+  <!-- /#page-wrapper -->
+{% endblock %}
+
+{% block script_additional %}
+
+  <!--Morris JavaScript -->
+  <!-- <script src="/static/theme/plugins/bower_components/raphael/raphael-min.js"></script> -->
+  <!-- <script src="/static/theme/plugins/bower_components/morrisjs/morris.js"></script> -->
+  
+  <!-- Custom Theme JavaScript -->
+  <!-- <script src="/static/theme/nav-full/js/dashboard4.js"></script> -->
+  
+{% endblock %}
+
+{% block script_bottom_inside %}
+  $(document).ready(function() {
+
+      // Executes when the HTML document is loaded and the DOM is ready
+      //alert("Document is ready");
+      $('#mnu_dashboard_li').addClass('active');
+      $('#mnu_dashboard_li a:first').addClass('active');
+      
+  });
+{% endblock %}  
+  

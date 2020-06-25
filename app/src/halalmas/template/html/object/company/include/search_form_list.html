@@ -1,0 +1,146 @@
+{% load name %}
+{{ form.media }}
+            
+<form class="form-horizontal collapse in" id='search-form' method='get' role="form">
+    {% csrf_token %}
+    {% for hidden in form.hidden_fields %}
+        {{ hidden }}
+    {% endfor %}
+    {% if form.non_field_errors %}
+        <div class="alert alert-danger">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>{{ form.non_field_errors }}</strong>
+        </div>
+    {% endif %}
+    {% if error_form %}
+        <div class="alert alert-danger">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>{{ error_form }}</strong>
+        </div>
+    {% endif %}
+    
+    <div class="row">
+        <div class="col-md-3 col-xs-12 p-l-10 p-r-10">
+          <label class="col-md-12 col-sm-12">Search</label>
+          <div class="input-group m-t-10 {% if form.search_q.errors %} has-error {% endif %}"> 
+              <span class="input-group-addon"><i class="fa fa-search"></i></span>
+              {{ form.search_q }}
+          </div>
+          <span class="help-block">
+            <small>*id, branch_name, pic_name</small>
+          </span>
+          <span class="help-block error_msg h5">
+              {% if form.search_q.errors %}
+                  {{ form.search_q.errors.as_text }}
+              {% endif %}
+          </span>
+        </div>
+        {% comment %} <div class="col-md-3 hidden-xs p-l-10 p-r-10">
+            <label class="col-md-12 col-sm-12">Category</label>
+            <div class="m-t-10 {% if form.search_q.errors %} has-error {% endif %}"> 
+                {{ form.category }}
+            </div>
+        </div> {% endcomment %}
+        <div class="col-md-2 col-sm-4 hidden-xs p-l-10 p-r-10">
+            <label class="col-md-12 col-sm-12">Status</label>
+            <div class="m-t-10 {% if form.search_q.errors %} has-error {% endif %}"> 
+                {{ form.status_choice }}
+            </div>
+            <span class="help-block">
+                <small>*choose status</small>
+            </span>
+            <span class="help-block error_msg h5">
+                {% if form.status_choice.errors %}
+                    {{ form.status_choice.errors.as_text }}
+                {% endif %}
+            </span>
+        </div>
+        {% comment %} <div class="col-md-1 col-sm-4 hidden-xs p-l-10 p-r-10">
+            <label class="col-md-12 col-sm-12">Yes/No</label>
+            <div class="m-t-10 {% if form.search_q.errors %} has-error {% endif %}"> 
+                {{ form.status_pick }}
+            </div>
+            <span class="help-block">
+                <small>*choose yes-no</small>
+            </span>
+            <span class="help-block error_msg h5">
+                {% if form.status_pick.errors %}
+                    {{ form.status_pick.errors.as_text }}
+                {% endif %}
+            </span>
+        </div> {% endcomment %}
+        <div class="col-md-2 col-sm-4 hidden-xs p-l-10 p-r-10">
+            <label class="col-md-12 col-sm-12">SortBy</label>
+            <div class="m-t-10 {% if form.search_q.errors %} has-error {% endif %}"> 
+                {{ form.status_order }}
+            </div>
+            <span class="help-block">
+                <small>*ordering</small>
+            </span>
+            <span class="help-block error_msg h5">
+                {% if form.status_order.errors %}
+                    {{ form.status_order.errors.as_text }}
+                {% endif %}
+            </span>
+        </div>
+        <div class="col-md-3 col-xs-12 text-right">
+          <div class="col-md-12 col-xs-6 m-t-20">
+            <button type="submit" id="id_btn_submit_search" class="btn btn-primary btn-rounded btn-block"> 
+                <strong><i class="fa fa-search" ></i> search </strong>
+            </button>
+          </div>
+          <div class="col-md-6 hidden-sm hidden-xs col-xs-6 m-t-10">
+            <button type="button" class="btn btn-info btn-rounded btn-block" onClick="clearSearchForm();"> 
+                <strong><i class="fa fa-eraser fa-fw"></i> clear </strong>
+            </button>
+          </div>
+          <div class="col-md-6 hidden-sm hidden-xs m-t-10">
+            <a class="btn btn-danger center btn-rounded btn-block" role="button" data-toggle="collapse" href="#id_pencarian_tgl" aria-expanded="false" aria-controls="id_pencarian_tgl">
+              <i class="fa fa-calendar fa-fw"></i><i class="fa fa-arrow-down fa-fw"></i>
+            </a>
+          </div>
+        </div>
+    </div>
+   
+    <div class="collapse m-t-15" id="id_pencarian_tgl">
+      <div class="well"> 
+        <div class="row">
+          <div class="col-md-4 col-xs-12">
+            <label class="col-md-12 col-sm-12">Today Create Date:</label>
+            {% for radio in form.status_now %}
+              <div class="col-md-4 col-sm-4">
+                  <span class="radio radio-info">
+                    {{ radio.tag }}
+                    <label for="{{ radio.id_for_label }}">
+                        {{ radio.choice_label }}
+                    </label>
+                  </span>
+              </div>
+            {% endfor %}
+            <span class="help-block error_msg h5">
+                {% if form.status_now.errors %}
+                    {{ form.status_now.errors.as_text }}
+                {% endif %}
+            </span>
+          </div>
+          <div class="collapse col-md-8 col-xs-12" id="id_toggle_tgl_entry">
+            <h5 class="m-t-0">Create Date : </h5>
+              <div class="input-group m-t-10 {% if form.search_q.errors %} has-error {% endif %}"> 
+                  <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i></span>
+                  {{ form.datetime_range }}
+              </div>
+              
+              <span class="help-block error_msg h5">
+                  {% if form.datetime_range.errors %}
+                      {{ form.datetime_range.errors.as_text }}
+                  {% endif %}
+              </span>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+
+</form>
+
+

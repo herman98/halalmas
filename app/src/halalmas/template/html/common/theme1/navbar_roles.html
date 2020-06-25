@@ -1,0 +1,31 @@
+{% load ifgroupselected from common %}
+
+{% ifgroupselected guests %}
+  {% include 'common/theme1/navbar/guests_top.html' %} 
+  {% include 'common/theme1/navbar/guests_sidebar.html' %}
+{% endifgroupselected %}
+
+{% ifgroupselected finance %}
+  {% include 'common/theme1/navbar/finance_top.html' %} 
+  {% include 'common/theme1/navbar/finance_sidebar.html' %}
+{% endifgroupselected %}
+
+{% ifgroupselected cra_team %}
+  {% include 'common/theme1/navbar/cra_top.html' %} 
+  {% include 'common/theme1/navbar/cra_sidebar.html' %}
+{% endifgroupselected %}
+
+{% ifgroupselected host_team %}
+  {% include 'common/theme1/navbar/host_team_top.html' %} 
+  {% include 'common/theme1/navbar/host_team_sidebar.html' %}
+{% endifgroupselected %}
+
+{% ifgroupselected marketing %}
+  {% include 'common/theme1/navbar/marketing_top.html' %} 
+  {% include 'common/theme1/navbar/marketing_sidebar.html' %}
+{% endifgroupselected %}
+
+{% ifgroupselected admin %}
+  {% include 'common/theme1/navbar/admin_top.html' %} 
+  {% include 'common/theme1/navbar/admin_sidebar.html' %}
+{% endifgroupselected %}

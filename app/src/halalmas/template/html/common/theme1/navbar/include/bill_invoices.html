@@ -1,0 +1,22 @@
+<li id="mnu_application_li"> 
+    <a href="#" class="waves-effect"><i class="fa fa-money fa-fw"></i>
+        <span class="hide-menu m-l-5"> Bills - Invoices
+        <span class="label label-rouded label-danger pull-right">0</span>
+        <span class="fa arrow"></span>
+        </span>
+    </a>
+    <ul class="nav nav-second-level">
+        <li id="mnu_payment_partial_li"> 
+        <a href="{% url 'invoice:list-waiting' %}" target="_blank">
+            <span class="hide-menu"> New | Waiting</span>
+            <span class="label label-rouded label-warning pull-right">{{invoice.waiting}}</span>
+        </a>
+        </li>
+        <li id="mnu_payment_partial_li"> 
+        <a href="{% url 'invoice:list-paid' %}"  target="_blank">
+            <span class="hide-menu"> Paid </span>
+            <span class="label label-rouded label-custom pull-right">{{invoice.paid}}</span>
+        </a>
+        </li>
+    </ul>
+</li>

@@ -1,0 +1,55 @@
+<li class="dropdown"> <a class="dropdown-toggle waves-effect waves-light" data-toggle="dropdown" href="#"><i class="fa fa-money fa-fw" style="font-size: 20px;"></i>
+	<div class="notify">
+		{%if invoice.waiting >= 1 %}
+			<span class="heartbit"></span><span class="point"></span>
+		{%endif%}
+	</div>
+	</a>
+	<ul class="dropdown-menu mailbox animated bounceInDown">
+	  <li>
+			{%if invoice.waiting >= 1 %}
+				<a href="#">
+					<div class="drop-title">Host Req-Payment
+							<span class="label label-rouded label-danger pull-right">{{invoice.waiting}}
+					</div>
+				</a>
+	    {%else%}
+	      <div class="drop-title text-center">- no request payment! -</div>
+	    {%endif%}
+	  </li>
+	  <li> <a class="text-center" href="#"> <strong>see all PAID  Host payment</strong> <i class="fa fa-angle-right"></i> </a></li>
+	</ul>
+	<!-- /.dropdown-messages -->
+</li>
+<li class="dropdown"> <a class="dropdown-toggle waves-effect waves-light" data-toggle="dropdown" href="#"><i class="fa fa-sticky-note-o" style="font-size: 20px;"></i>
+	<div class="notify">
+		{% if orders.today or orders.week or orders.month %}
+			<span class="heartbit"></span><span class="point"></span>
+		{%endif%}
+	</div>
+	</a>
+	<ul class="dropdown-menu mailbox animated bounceInDown">
+	  <li>
+			<a href="/crm/order_receipt/list/hourly?filter=today">
+				<div class="drop-title">Receipts today
+						<span class="label label-rouded label-danger pull-right">
+							{{orders.today}}
+				</div>
+			</a>
+			<a href="/crm/order_receipt/list/hourly?filter=week">
+				<div class="drop-title">Receipts week
+						<span class="label label-rouded label-danger pull-right">
+							{{orders.week}}
+				</div>
+			</a>
+			<a href="/crm/order_receipt/list/hourly?filter=month">
+				<div class="drop-title">Receipts month
+						<span class="label label-rouded label-danger pull-right">
+							{{orders.month}}
+				</div>
+			</a>
+	  </li>
+	  <li> <a class="text-center" href="#"> <strong>see all Booking Receipts</strong> <i class="fa fa-angle-right"></i> </a></li>
+	</ul>
+	<!-- /.dropdown-messages -->
+</li>

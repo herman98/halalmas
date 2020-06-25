@@ -1,0 +1,23 @@
+{% load unit %}
+
+<li id="mnu_dashboard_li"> <a href="{% url 'dashboard:default' %}" class="waves-effect">
+    <i class="linea-icon linea-basic fa-fw" data-icon="v"></i> <span class="hide-menu"> Dashboard 
+    </a>
+</li>
+
+{% if tempatdotcom_roles|length > 1 %}
+<li><a href="javascript:void(0)" class="waves-effect">
+    <i class="icon-grid"></i> <span class="hide-menu"> 
+    &nbsp;Change Role<span class="fa arrow"></span>
+    </span></a>
+    <ul class="nav nav-second-level">
+    {% for role_item in tempatdotcom_roles %}
+        <li><a href="{{ role_item.url }}" class="waves-effect">{{ role_item.role|display_safe }}
+        </a>
+        </li>
+    {% empty %}
+        <li>Tidak ada</li>
+    {% endfor %}
+    </ul>
+</li>
+{% endif %}

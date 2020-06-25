@@ -1,0 +1,54 @@
+<div class="col-md-3 col-sm-6 col-xs-12">
+	<div class="white-box">
+	<a href="{% url 'crm-branch:list' %}" target="_blank">
+	<div class="r-icon-stats">
+		<i class="ti-layout-media-center bg-megna"></i>
+		<div class="bodystate">
+		<h4>{{data.merchant_cnt|safe}}</h4>
+		<span class="text-muted">Total Merchant</span>
+		</div>
+	</div>
+	</a>
+	</div>
+</div>
+
+<div class="col-md-3 col-sm-6 col-xs-12">
+	<div class="white-box">
+	<a href="{% url 'crm-buildings:list' %}" target="_blank">
+	<div class="r-icon-stats">
+		<i class="ti-target bg-info"></i>
+		<div class="bodystate">
+		<h4>{{data.bulding_cnt|safe}}</h4>
+		<span class="text-muted">Total Buildings</span>
+		</div>
+	</div> 
+	</a> 
+	</div>
+</div>
+
+<div class="col-md-3 col-sm-6 col-xs-12">
+	<div class="white-box">
+	<a href="/admin/hosts/hostuser/" target="_blank">
+	<div class="r-icon-stats">
+		<i class="ti-user bg-success"></i>
+		<div class="bodystate">
+		<h4>{{data.host_cnt|safe}}</h4>
+		<span class="text-muted">Total User Hosts</span>
+		</div>
+	</div>  
+	</a>
+	</div>
+</div>
+<div class="col-md-3 col-sm-6 col-xs-12">
+	<div class="white-box">
+	<a href="/admin/members/customeruserprofile/" target="_blank">
+	<div class="r-icon-stats">
+		<i class="ti-user bg-inverse"></i>
+		<div class="bodystate">
+		<h4>{{data.customer_cnt|safe}}</h4>
+		<span class="text-muted">Total Customers</span>
+		</div>
+	</div>
+	</a>
+	</div>
+</div>

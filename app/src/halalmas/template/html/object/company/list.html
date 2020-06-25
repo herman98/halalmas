@@ -1,0 +1,332 @@
+{% extends "common/theme1/list/list_footable_theme1.html" %}
+
+{% load model template default unit %}
+{% load ifusergroup from common %}
+
+{% block meta %}
+    <!-- remarked if for production -->
+    <!-- <meta http-equiv="refresh" content="3" > -->
+{% endblock %}
+
+{% block script_head %}
+  <script src="/static/vue/vue.min.js" ></script>
+  <script src="/static/vue/vue.resource.js"></script>
+  <!-- <script src="/static/autocomplete/vue2-autocomplete.js"></script> -->
+
+  <style>
+    .autocomplete {
+      position: relative;
+      width: 100%;
+    }
+
+    .autocomplete-results {
+      padding: 0;
+      margin: 0;
+      border: 1px solid #eeeeee;
+      height: 120px;
+      overflow: auto;
+    }
+
+    .autocomplete-result {
+      list-style: none;
+      text-align: left;
+      padding: 4px 2px;
+      cursor: pointer;
+    }
+
+    .autocomplete-result:hover {
+      background-color: #4AAE9B;
+      color: white;
+    }
+
+    .autocomplete-result.is-active,
+    .autocomplete-result:hover {
+      background-color: #4AAE9B;
+      color: white;
+    }
+  </style>
+{% endblock %}
+
+
+{% block breadcrumb_title %}Data Company {% endblock %}
+{% block breadcrumb_path %}
+    <li><a href="#">Data Corporate - Company </a></li>
+    <li class="active">Seluruhnya</li>
+{% endblock %}
+ 
+{% block list_title %}
+  <div class="row">
+    <div class="col-md-6">
+      Data Company
+    </div>
+  </div>
+  
+{% endblock %}
+
+{% block list_subtitle %}Silahkan masukan data pencarian{% endblock %}
+{% block title_button %}
+  <a href="/crm/company/create-page" title='Add new company'>
+      <button class="btn btn-success btn-rounded m-b-5">
+        <i class="fa fa-plus"></i> Add Company
+      </button>
+    </a>
+{% endblock %}  
+
+{% block content-list %}
+<div class="row">
+  <div class="col-lg-12 col-md-12 col-xs-12">
+    {% search_form_status 'object/company/include/search_form_list.html' form_search obj_search err_msg %}
+  </div>
+</div>
+
+<div id="app-1">
+  <table id="table-list-footable" class="table toggle-circle table-hover">
+    <thead>
+      <tr>
+        {% comment %} <th data-hide="phone" data-sort-ignore="true" class="min-width text-center">
+            Actions
+        </th> {% endcomment %}
+        <th data-toggle="true"> No </th>
+        <th data-toggle="true"> Company </th>
+        <th data-hide="phone"> Detail </th>
+        <th data-hide="phone"> Address </th>
+        <th data-hide="phone"> TS </th>
+      </tr>
+    </thead>
+    <div class="form-inline padding-bottom-15">
+      <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12 hidden-xs">
+          
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6 col-xs-12 hidden-xs">
+        </div>
+      </div>
+    </div>
+    <tbody>
+      {% if object_list %}
+        {% for object in object_list %}
+          <tr>
+            {% comment %} <td class='text-center'>
+              <div class="btn-group m-r-10">
+                <button aria-expanded="false" data-toggle="dropdown" class="btn btn-danger waves-effect waves-light" type="button"><i class="icon-options-vertical"></i></button>
+                  <ul role="menu" class="dropdown-menu">
+                    <li><a href="/admin/objects/company/{{object.id}}/change/" title='detail'>
+                      <i class="fa fa-book fa-fw"></i> Details</a></li>
+                    <li class="divider"></li>
+                    <li>
+                      <a href="/crm/company/edit-page/{{object.id}}" target="_blank">
+                        <i class="fa fa-pencil fa-fw"></i>Edit
+                      </a>
+                    </li>
+                    {% ifusergroup admin %}
+                    <li>
+                      <a href="javascript:void(0)">
+                      <i class="fa fa-trash fa-fw"></i>Delete
+                      </a>
+                    </li>
+                    {% endifusergroup %}
+                  </ul>
+              </div>
+            </td> {% endcomment %}
+            <td>{% increment_counter_one forloop.counter0 page_obj.number results_per_page %}</td>
+            <td>
+              <a href="/crm/company/edit-page/{{object.id}}" target='_blank'>
+                {{ object.name|default:"-"|safe}}<br/>
+              </a>
+              <small>
+              Type : {{ object.organization_type|default:"-"|safe}}<br/>
+              </small>
+            </td>
+            <td>
+              <small>
+                NPWP: {{ object.npwp|default:"-"|safe}}<br/>
+                SIUP: {{ object.siup|default:"-"|safe}}<br/>
+                Owner: {{object.owner_name|default:"-"|safe}}
+              </small>
+            </td>
+            <td class="hidden-xs" style="width:30%;">
+                <small>
+                {{ object.address|default:"-"|safe}}
+                </small>
+                <br/>
+                <icon class="fa fa-map-marker fa-fw"></icon>
+                <small>
+                {{ object.location.name|default:"-"|safe}}
+                {%if object.location.latitude and  object.location.longitude %}
+                  <a href="https://maps.google.com/maps?/z=10&q={{object.location.latitude}}+{{object.location.longitude}}" target="_blank">
+                  ,
+                  {{ object.kelurahan|default:"-"|safe}}, 
+                  {{ object.kecamatan|default:"-"|safe}}, 
+                  {{ object.kabupaten|default:"-"|safe}}, 
+                  {{ object.propinsi|default:"-"|safe}} 
+                  {%if object.post_code %} {{ object.post_code|default:"-"|safe}} {%endif%}
+                  </a>
+                {%endif%}
+                unit: {{ object.unit|default:"-"|safe}}, Floor: {{ object.floor|default:"-"|safe}}
+                </small>
+            </td>
+            <td>
+                creator: {{ object.creator|default:"-"|default:"-"|safe}}<br/>
+                crt-: {{ object.cdate|date:"d-m-Y H:i"|default:"-"|safe}}<br/>
+                upd-: {{ object.udate|date:"d-m-Y H:i"|default:"-"|safe}}
+            </td>
+            
+          </tr>
+        {% endfor %}
+      {% else %}
+          <tr>
+              <td colspan=8 class='center'>Kosong - Tidak ada Data</td>
+          </tr>
+      {% endif %}
+      
+    </tbody>
+  </table>
+  <tfoot>
+    <tr>
+      <td colspan="5"><div class="text-right">
+          {% pagination2 is_paginated paginator page_obj q 4 %}
+        </div>
+      </td>
+    </tr>
+  </tfoot>
+</div>
+
+
+{% endblock %}
+
+
+{% block content-additional %}
+
+  {% include 'object/company/include/modals_cr_up_del.html' %}
+
+{% endblock %}
+
+
+
+{% block script_bottom_inside %}
+  function clearSearchForm(){
+    $("#id_search_q").val('');
+    $("#id_category").val([]);
+    $("#id_status_choice").val([]);
+    $("#id_status_order").val([]);
+    $("#id_status_now_1").val([]);
+    $("#id_status_now_0").val([]);
+    check_bebas_selected();
+    try{
+        document.getElementById('id_err_msg').innerHTML='';
+    }
+    catch(err) {
+    }
+    $('#id_btn_submit_search').click();  
+  }
+    function goBack() {
+        window.history.back();
+    }       
+
+  function check_bebas_selected(){
+    //console.log("check_bebas_selected");
+    var status = $("#id_status_now_1").is(':checked');
+    if (status==true){
+        $("#id_toggle_tgl_entry").toggle(true);
+    }else{
+        $("#id_toggle_tgl_entry").toggle(false);
+    }
+  }
+  function check_priode_selected(){
+    //console.log("check_priode_selected");
+    var status_0 = $("#id_status_now_0").is(':checked');
+    var status_1 = $("#id_status_now_1").is(':checked');
+    if (status_0==true || status_1==true){
+      //$("#id_pencarian_tgl").show(true);
+    }
+  }
+
+  window.onload = function() {
+      var ex1 = document.getElementById('id_status_now_0');
+      var ex2 = document.getElementById('id_status_now_1');
+      ex1.onclick = handler_0;
+      ex2.onclick = handler_1;
+      
+      // disabled tgl start and end
+      check_bebas_selected();
+      check_priode_selected();
+  }
+  function handler_0() {
+      // console.log('clicked 0');
+      var status = $("#id_status_now_0").is(':checked');
+      if (status==true){
+        $("#id_toggle_tgl_entry").toggle(false);
+      }
+  }
+  function handler_1() {
+      //console.log('clicked 1');
+      check_bebas_selected();
+  }  
+
+  // Daterange picker
+  $('.input-daterange-timepicker').daterangepicker({
+      timePicker: true,
+      format: 'DD/MM/YYYY H:mm',
+      timePickerIncrement: 5,
+      timePicker12Hour: true,
+      timePickerSeconds: false,
+      buttonClasses: ['btn', 'btn-sm'],
+      applyClass: 'btn-danger',
+      cancelClass: 'btn-inverse'
+  });
+      
+  $(document).ready(function() {
+
+      // Executes when the HTML document is loaded and the DOM is ready
+      //alert("Document is ready");
+      /*
+      $('#mnu_dashboard_li a:first').removeClass('active');
+      $('#{{nav_menu}}').addClass('active');
+      $('#{{nav_menu}} a:first').addClass('active');
+      $('#{{nav_submenu}}').addClass('active');
+      $('#{{nav_subsubmenu}}').addClass('active');
+      */
+  });
+{% endblock %}
+
+
+{% block custom_link %}
+  <link href="/static/theme/plugins/bower_components/footable/css/footable.core.css" rel="stylesheet">
+  <link href="/static/theme/plugins/bower_components/bootstrap-select/bootstrap-select.min.css" rel="stylesheet" />
+
+  <!-- Page plugins css -->
+  <link href="/static/theme/plugins/bower_components/clockpicker/dist/jquery-clockpicker.min.css" rel="stylesheet">
+  <!-- Date picker plugins css -->
+  <link href="/static/theme/plugins/bower_components/bootstrap-datepicker/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css" />
+  <!-- Daterange picker plugins css -->
+  <link href="/static/theme/plugins/bower_components/timepicker/bootstrap-timepicker.min.css" rel="stylesheet">
+  <link href="/static/theme/plugins/bower_components/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+{% endblock %}
+
+
+{% block script_additional %}
+    
+
+    <!-- Plugin JavaScript -->
+    <script src="/static/theme/plugins/bower_components/moment/moment.js"></script>
+
+    <!-- Date Picker Plugin JavaScript -->
+    <script src="/static/theme/plugins/bower_components/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+    <!-- Date range Plugin JavaScript -->
+    <script src="/static/theme/plugins/bower_components/timepicker/bootstrap-timepicker.min.js"></script>
+    <script src="/static/theme/plugins/bower_components/bootstrap-daterangepicker/daterangepicker-xwork.js"></script>
+
+    <!-- Footable -->
+    <script src="/static/theme/plugins/bower_components/footable/js/footable.all.min.js"></script>
+    <script src="/static/theme/plugins/bower_components/bootstrap-select/bootstrap-select.min.js" type="text/javascript"></script>
+    
+    <!--FooTable init-->
+    <script src="/static/theme/nav-full/js/footable-init.js"></script>
+    <!--Style Switcher -->
+    <script src="/static/theme/plugins/bower_components/styleswitcher/jQuery.style.switcher.js"></script>
+
+
+{% endblock %}
+

@@ -1,0 +1,730 @@
+{% extends "common/theme1/list/list_footable_theme1.html" %}
+
+{% load model template default unit name %}
+
+{% block meta %}
+    <!-- remarked if for production -->
+    <!-- <meta http-equiv="refresh" content="3" > -->
+{% endblock %}
+
+{% block script_head %}
+  <script src="/static/vue/vue.min.js" ></script>
+  <script src="/static/vue/vue.resource.js"></script>
+  <!-- <script src="/static/autocomplete/vue2-autocomplete.js"></script> -->
+
+  <style>
+    .autocomplete {
+      position: relative;
+      width: 100%;
+    }
+
+    .autocomplete-results {
+      padding: 0;
+      margin: 0;
+      border: 1px solid #eeeeee;
+      height: 120px;
+      overflow: auto;
+    }
+
+    .autocomplete-result {
+      list-style: none;
+      text-align: left;
+      padding: 4px 2px;
+      cursor: pointer;
+    }
+
+    .autocomplete-result:hover {
+      background-color: #4AAE9B;
+      color: white;
+    }
+
+    .autocomplete-result.is-active,
+    .autocomplete-result:hover {
+      background-color: #4AAE9B;
+      color: white;
+    }
+
+    .footable-row-detail-value {
+        display: table-cell;
+        width: 500px;
+    }
+    .blue {
+      color: darkblue;
+    }
+  </style>
+{% endblock %}
+
+
+{% block breadcrumb_title %}Data Customer {% endblock %}
+{% block breadcrumb_path %}
+    <li><a href="#">Data Customer </a></li>
+    <li class="active">Seluruhnya</li>
+{% endblock %}
+ 
+{% block list_title %}
+  <div class="row">
+    <div class="col-md-6">
+      Data Customer
+    </div>
+  </div>
+  
+{% endblock %}
+
+{% block list_subtitle %}Silahkan masukan data pencarian{% endblock %}
+{% block title_button %}
+  
+{% endblock %}      
+
+{% block content-list %}
+
+
+  <div class="row">
+    <div class="col-lg-10 col-md-10 col-xs-12">
+      {% search_form_app form_search obj_search "All Data" err_msg %}
+    </div>
+    <div id="view-app-2" class="col-lg-2 col-md-2 col-xs-12 text-center m-t-20">
+      <a href="#" title="Add new customer" v-on:click="addCustomer();">
+        <button class="btn btn-success btn-rounded m-b-5">
+          <i class="fa fa-plus"></i> Add New Customer
+        </button>
+      </a>
+    </div>
+  </div>
+
+  <div id="view-app-1" class="">
+    <table id="table-list-footable" class="table toggle-circle table-hover">
+      <thead>
+        <tr>
+          <th data-toggle="true"> No </th>
+          <th> Name</th>
+          <th data-toggle="true"> Company </th>
+          <th data-hide="phone"> Email </th>
+          <th data-hide="phone"> Position </th>
+          <th data-hide="phone"> Phone No </th>
+          <th data-hide="all"> Detail </th>
+          <th data-hide="phone" data-sort-ignore="true" class="min-width text-center">
+              Actions
+          </th>
+        </tr>
+      </thead>
+      <div class="form-inline padding-bottom-15">
+        <div class="row">
+          <div class="col-md-12 col-sm-12 col-xs-12 hidden-xs">
+            
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6 col-xs-12 hidden-xs">
+          </div>
+        </div>
+      </div>
+      <tbody>
+        {% if object_list %}
+          {% for object in object_list %}
+            <tr>
+              <td>{% increment_counter_one forloop.counter0 page_obj.number results_per_page %}</td>
+              <td>
+                <a href="#">
+                  {{ object.name|default:"-"|safe}}<br/>
+                </a>
+              </td>
+              <td>
+                  {{ object.company|default:"-"|safe}}
+              </td>
+              <td>
+                  {{ object.email|default:"-"|safe}} 
+              </td>
+              <td>
+                  {{ object.position|default:"-"|safe}} 
+              </td>
+              <td>
+                  {{ object.phone_no_1|default:"-"|safe}} ,
+                  {{ object.phone_no_2|default:"-"|safe}} ,
+                  {{ object.phone_no_3|default:"-"|safe}}
+              </td>
+              <td>
+                  {% include "object/customer/include/td_data.html" %}
+              </td>
+              <td class='text-center'>
+                <a href="javascript:void(0)" v-on:click="showDetail({{object.id}}, '{{object.company|safe}}');">
+                <button class="btn btn-warning btn-rounded m-b-5"><i class="fa fa-pencil fa-fw"></i>Update</button>
+                </a>
+
+                {%if request.user|has_group:"admin" %}
+                  <a href="javascript:void(0)" v-on:click="delCustomerOnList('{{object.id}}','{{object.name|safe}}');">
+                  <button class="btn btn-danger btn-rounded m-b-5"><i class="fa fa-trash fa-fw"></i>Delete</button>
+                  </a>
+                {% endif %}
+
+                <a href="/admin/crm/inquiry/add/?customer={{object.id}}" target="_blank">
+                <button class="btn btn-purple btn-rounded m-b-5"><i class="fa fa-plus fa-fw"></i>New Inquiry</button>
+                </a>
+              </td>
+            </tr>
+          {% endfor %}
+        {% else %}
+            <tr>
+                <td colspan=8 class='center'>Kosong - Tidak ada Data</td>
+            </tr>
+        {% endif %}
+        
+      </tbody>
+    </table>
+    <tfoot>
+      <tr>
+        <td colspan="5"><div class="text-right">
+            {% pagination2 is_paginated paginator page_obj q 4 %}
+          </div>
+        </td>
+      </tr>
+    </tfoot>
+</div> <!-- view-app-1 -->
+
+
+{% endblock %}
+
+
+{% block content-additional %}
+
+  {% include 'object/customer/include/modals_update.html' %}
+
+{% endblock %}
+
+
+{% block script_bottom_inside %}
+
+  function clearSearchForm(){
+    $("#id_search_q").val('');
+    //$("#id_status_app").val([]);
+    $("#id_status_now_1").val([]);
+    $("#id_status_now_0").val([]);
+    check_bebas_selected();
+    try{
+        document.getElementById('id_err_msg').innerHTML='';
+    }
+    catch(err) {
+    }
+  }
+    function goBack() {
+        window.history.back();
+    }       
+
+  function check_bebas_selected(){
+    //console.log("check_bebas_selected");
+    var status = $("#id_status_now_1").is(':checked');
+    if (status==true){
+        $("#id_toggle_tgl_entry").toggle(true);
+    }else{
+        $("#id_toggle_tgl_entry").toggle(false);
+    }
+  }
+  function check_priode_selected(){
+    //console.log("check_priode_selected");
+    var status_0 = $("#id_status_now_0").is(':checked');
+    var status_1 = $("#id_status_now_1").is(':checked');
+    if (status_0==true || status_1==true){
+      //$("#id_pencarian_tgl").show(true);
+    }
+  }
+
+  window.onload = function() {
+      var ex1 = document.getElementById('id_status_now_0');
+      var ex2 = document.getElementById('id_status_now_1');
+      if(ex1){
+        ex1.onclick = handler_0;
+      }
+      if(ex2){
+        ex2.onclick = handler_1;
+      }
+      
+      // disabled tgl start and end
+      check_bebas_selected();
+      check_priode_selected();
+  }
+  function handler_0() {
+      // console.log('clicked 0');
+      var status = $("#id_status_now_0").is(':checked');
+      if (status==true){
+        $("#id_toggle_tgl_entry").toggle(false);
+      }
+  }
+  function handler_1() {
+      //console.log('clicked 1');
+      check_bebas_selected();
+  }  
+
+  // Daterange picker
+  $('.input-daterange-timepicker').daterangepicker({
+      timePicker: true,
+      format: 'DD/MM/YYYY H:mm',
+      timePickerIncrement: 5,
+      timePicker12Hour: true,
+      timePickerSeconds: false,
+      buttonClasses: ['btn', 'btn-sm'],
+      applyClass: 'btn-danger',
+      cancelClass: 'btn-inverse'
+  });
+      
+  $(document).ready(function() {
+
+      // Executes when the HTML document is loaded and the DOM is ready
+      //alert("Document is ready");
+      $('#table-list-footable').footable();
+  });
+
+  $('#modals-customer-update').on('show.bs.modal', function(e) {
+    $("#id_error_ajax").addClass("hidden");
+  });
+
+  // Vuejs START -----
+
+  var app1 = new Vue({
+    el: '#view-app-1',
+    delimiters: ['${','}'],
+    data: {
+      id_customer : '',
+      company_name : '',
+    },
+    loading: false,
+    mounted: function() {
+    },
+    methods: {
+      showDetail : function(id_obj, company_obj){
+        // console.log('id_obj :' + id_obj + ' company :' + company_obj);
+        this.id_customer = id_obj;
+        this.company_name = company_obj;
+        modalsVUpdate.title = "Customer Update";
+        modalsVUpdate.submit_title = "Save changes";
+        modalsVUpdate.isUpdate=true;
+        modalsVUpdate.getCustomer(this.id_customer, this.company_name);
+        $("#modals-customer-update").modal('show');
+      },
+      delCustomerOnList : function(id_obj, cust_name){
+        console.log('delCustomerOnList here');
+        this.id_customer = '' + id_obj;
+        modalsVDelete.id_delete = this.id_customer;
+        modalsVDelete.body_modals="Are you sure want to delete this customer name: " + cust_name;
+        $("#modals-customer-delete").modal('show');
+      },
+    },
+  });
+
+  var app2 = new Vue({
+    el: '#view-app-2',
+    delimiters: ['${','}'],
+    data: {
+      id_customer : '',
+      company_name : '',
+    },
+    loading: false,
+    mounted: function() {
+    },
+    methods: {
+      addCustomer : function(){
+        // console.log('AddCustomer here');
+        modalsVUpdate.title = "Add New Customer";
+        modalsVUpdate.submit_title = "Save New Customer";
+        modalsVUpdate.isUpdate=false;
+        modalsVUpdate.currentCustomer={};
+        modalsVUpdate.update_company='';
+        $("#id_company_data").val('')
+        $("#modals-customer-update").modal('show');
+      },
+    },
+  });
+
+  var csrftoken = '{{csrf_token}}';
+  //import Autocomplete from 'vue2-autocomplete-js';
+
+  var modalsVUpdate = new Vue({
+    //components: {
+    //  autocomplete: Vue2Autocomplete
+    //},
+    el: '#modals-v-update',
+    delimiters: ['${','}'],
+    data: {
+      title: 'Customer Update',
+      submit_title : "Save changes",
+      err_message : 'hohoho',
+      loading: false,
+      currentCustomer: {},
+      cust_pk : '',
+      update_company : '',
+      update_company_name : '',
+      company_data: [],
+      isUpdate: true,
+      // 'Apple', 'Banana', 'Orange', 'Mango', 'Pear', 'Peach', 'Grape', 'Tangerine', 'Pineapple'
+    },
+    mounted: function() {
+      this.getCompany();
+    },
+    methods: {
+      getCustomer: function(id, company_str) { //
+        //console.log("csrftoken: " + csrftoken + " , ");
+        // console.log("id: " + id)
+        this.cust_pk = '' + id;
+        this.update_company_name = company_str
+        this.loading = true;
+        this.$http.get("{%url 'customer:get_detail' %}", {
+            params: {
+              '_pk' : '' + id,
+            }
+          })
+            .then((response) => {
+              // console.log(response);
+              if(response.body.result=="successful!"){
+                current_cust = JSON.parse(response.body.output);
+                //console.log(current_cust[0]);
+                this.currentCustomer = current_cust[0].fields;
+                this.update_company = this.currentCustomer.company
+                $("#id_company_data").val(this.update_company_name)
+                this.loading = false;
+              }
+              else{
+                this.err_message=response.body.reason;
+                $("#id_error_ajax").removeClass("hidden");
+              }
+            })
+            .catch((err) => {
+              this.loading = false;
+              console.log(err);
+            })
+      },
+      updateCustomer: function(){
+        // console.log("update is here");
+        //set update company if any
+        this.currentCustomer.company = this.update_company
+        var currCust = JSON.stringify(this.currentCustomer)
+
+        //console.log(currCust));
+        //console.log("csrftoken: " + csrftoken + " , ");
+        var data = {
+              '_currCust': currCust,
+              '_pk' : this.cust_pk,
+            };
+        this.$http.post("{%url 'customer:update' %}", 
+          data, {
+            headers: {
+                'X-CSRFToken': csrftoken,
+                'Content-Type': 'application/json;charset=UTF-8',
+            },
+          })
+            .then((response) => {
+              // console.log(response);
+              if(response.body.result=="successful!"){
+                // console.log(response.body.output);
+                $("#id_error_ajax").addClass("hidden");
+                modalsVSuccess.title_success = 'Update Customer Data';
+                modalsVSuccess.title_body = response.body.output;
+                modalsVSuccess.isSuccess = true;
+                $('#modals-customer-update').modal('hide');
+                $('#modals-customer-success').modal('show');
+
+              }
+              else{
+                this.err_message=response.body.reason;
+                $("#id_error_ajax").removeClass("hidden");
+              }
+            })
+            .catch((err) => {
+              this.loading = false;
+              console.log(err);
+            })
+      },
+      addCustomer:function() {
+        console.log("addCustomer is here");
+        //set update company if any
+        this.currentCustomer.company = this.update_company
+        var newCust = JSON.stringify(this.currentCustomer)
+
+        console.log(newCust);
+        console.log("csrftoken: " + csrftoken + " , ");
+        var data = {
+              '_newCust': newCust,
+            };
+        this.$http.post("{%url 'customer:add' %}", 
+          data, {
+            headers: {
+                'X-CSRFToken': csrftoken,
+                'Content-Type': 'application/json;charset=UTF-8',
+            },
+          })
+            .then((response) => {
+              // console.log(response);
+              if(response.body.result=="successful!"){
+                // console.log(response.body.output);
+                $("#id_error_ajax").addClass("hidden");
+                modalsVSuccess.title_success = 'Insert Customer Data';
+                modalsVSuccess.title_body = response.body.output;
+                modalsVSuccess.isSuccess = true;
+                $('#modals-customer-update').modal('hide');
+                $('#modals-customer-success').modal('show');
+              }
+              else{
+                this.err_message=response.body.reason;
+                $("#id_error_ajax").removeClass("hidden");
+              }
+            })
+            .catch((err) => {
+              this.loading = false;
+              console.log(err);
+            })
+      },
+      
+      getCompany: function() {
+        //console.log("csrftoken: " + csrftoken + " , ");
+        this.loading = true;
+        this.$http.get("{%url 'company:get_all' %}", {
+            params: {
+            }
+          })
+            .then((response) => {
+              // console.log(response);
+              if(response.body.result=="successful!"){
+                company_all = JSON.parse(response.body.output);
+                // console.log(company_all);
+                this.company_data = company_all;
+              }
+              else{
+                this.err_message=response.body.reason;
+                $("#id_error_ajax").removeClass("hidden");
+              }
+            })
+            .catch((err) => {
+              this.loading = false;
+              console.log(err);
+            })
+      },
+      btnAlertClose: function(){
+        $("#id_error_ajax").addClass("hidden");
+      },
+    }
+  });
+
+  var modalsVSuccess = new Vue({
+    el: '#modals-v-success',
+    delimiters: ['${','}'],
+    data: {
+      title_success : 'Update Customer Data',
+      title_body : '',
+      isSuccess : true,
+    },
+    methods: {
+      reloadPage : function(){
+        if(this.isSuccess == true){
+          window.location.reload(true);
+        }
+      }
+    }
+  });
+
+  var modalsVDelete = new Vue({
+    el: '#modals-v-delete',
+    delimiters: ['${','}'],
+    data: {
+      id_delete : '',
+      title_modals : 'Delete Customer Data',
+      body_modals : '',
+    },
+    methods: {
+      delCustomer : function(){
+        // console.log('modalsVDelete:delCustomer here');
+        this.$http.get("{%url 'customer:delete' %}", {
+            params: {
+              '_pk' : '' + this.id_delete,
+            }
+          })
+            .then((response) => {
+              // console.log(response);
+              if(response.body.result=="successful!"){
+                // console.log(response.body.output);
+                modalsVSuccess.title_success = 'Delete Customer Data';
+                modalsVSuccess.title_body = "Customer with id: " + this.id_delete + " successfully deleted " ;
+                modalsVSuccess.isSuccess = true;
+              }
+              else{
+                this.err_message=response.body.reason;
+                modalsVSuccess.title_success = 'Delete Customer Data';
+                modalsVSuccess.title_body = "Customer with id: "+ this.id_delete + " failed: " + this.err_message;
+                modalsVSuccess.isSuccess = false;
+              }
+              $("#modals-customer-delete").modal('hide');
+              $('#modals-customer-success').modal('show');
+            })
+            .catch((err) => {
+              this.loading = false;
+              console.log(err);
+            })
+      },
+    }
+  });
+
+  //auto complete vue-component START
+  Vue.component('compy-autocomplete', {
+    delimiters: ['%{','}'],
+    props: {
+      items: {
+        type: Array,
+        required: false,
+        default: () => [],
+      },
+      isAsync: {
+        type: Boolean,
+        required: false,
+        default: false,
+      },
+    },
+    /*computed: {
+        // a computed getter
+        b: function () {
+          // `this` points to the vm instance
+          console.log("computed here" + this.items);
+          return this.items;
+        }
+    },*/
+    data() {
+      return {
+        search: modalsVUpdate.update_company_name,
+        results: [],
+        isOpen: false,
+        isLoading: false,
+        arrowCounter: -1,
+        items_1: modalsVUpdate.company_data,
+      };
+    },
+    methods: {
+      onChange() {
+        // console.log("items: " + this.items_1);
+        // Let's warn the parent that a change was made
+        this.$emit('input', this.search);
+
+        // Is the data given by an outside ajax request?
+        if (this.isAsync) {
+          this.isLoading = true;
+        } else {
+          // Data is sync, we can search our flat array
+          this.filterResults();
+          this.isOpen = true;
+        }
+       modalsVUpdate.update_company = ''
+      },
+      filterResults() {
+        
+        this.items = this.items_1;
+        this.results = this.items.filter(item => item[1].toLowerCase().indexOf(this.search.toLowerCase()) > -1);
+      },
+      setResult(result) {
+        this.search = result[1];
+        this.isOpen = false;
+        modalsVUpdate.update_company = result[0];
+      },
+      onArrowDown() {
+        if (this.arrowCounter < this.results.length) {
+          this.arrowCounter = this.arrowCounter + 1;
+        }
+      },
+      onArrowUp() {
+        if (this.arrowCounter > 0) {
+          this.arrowCounter = this.arrowCounter - 1;
+        }
+      },
+      onEnter() {
+        this.search = this.results[this.arrowCounter];
+        this.isOpen = false;
+        this.arrowCounter = -1;
+      },
+      handleClickOutside(evt) {
+        if (!this.$el.contains(evt.target)) {
+          this.isOpen = false;
+          this.arrowCounter = -1;
+        }
+      }
+    },
+    watch: {
+      // Once the items content changes, it means the parent component
+      // provided the needed data
+      items: function (value, oldValue) {
+        // we want to make sure we only do this when it's an async request
+        if (this.isAsync) {
+          this.results = value;
+          this.isOpen = true;
+          this.isLoading = false;
+        }
+      }
+    },
+    mounted() {
+      document.addEventListener('click', this.handleClickOutside);
+    },
+    destroyed() {
+      document.removeEventListener('click', this.handleClickOutside);
+    },
+    template: `
+              <div class='col-md-12 col-xs-12'>
+                <div class="form-group">
+                    <label for="cust-company" class="control-label">Company:</label>
+                    <div class="autocomplete input-group">
+                        <input id="id_company_data" 
+                            type="text" placeholder="Company" class="form-control"
+                            v-model="search"
+                            @input="onChange"
+                            @keyup.down="onArrowDown"
+                            @keyup.up="onArrowUp"
+                            @keyup.enter="onEnter"
+                          />
+                        <ul v-show="isOpen" class="autocomplete-results">
+                            <li
+                              class="loading"
+                              v-if="isLoading">
+                              Loading results...
+                            </li>
+                            <li 
+                              v-else
+                              v-for="(result, i) in results" 
+                              :key="i" 
+                              @click="setResult(result)" 
+                              class="autocomplete-result">
+                              %{ result[1] }
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            `,
+  });
+  // Vuejs END -----
+{% endblock %}
+
+
+{% block custom_link %}
+  <link href="/static/theme/plugins/bower_components/footable/css/footable.core.css" rel="stylesheet">
+  <link href="/static/theme/plugins/bower_components/bootstrap-select/bootstrap-select.min.css" rel="stylesheet" />
+
+  <!-- Page plugins css -->
+  <link href="/static/theme/plugins/bower_components/clockpicker/dist/jquery-clockpicker.min.css" rel="stylesheet">
+  <!-- Date picker plugins css -->
+  <link href="/static/theme/plugins/bower_components/bootstrap-datepicker/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css" />
+  <!-- Daterange picker plugins css -->
+  <link href="/static/theme/plugins/bower_components/timepicker/bootstrap-timepicker.min.css" rel="stylesheet">
+  <link href="/static/theme/plugins/bower_components/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+{% endblock %}
+
+
+{% block script_additional %}
+    <!-- Plugin JavaScript -->
+    <script src="/static/theme/plugins/bower_components/moment/moment.js"></script>
+
+    <!-- Date Picker Plugin JavaScript -->
+    <script src="/static/theme/plugins/bower_components/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+    <!-- Date range Plugin JavaScript -->
+    <script src="/static/theme/plugins/bower_components/timepicker/bootstrap-timepicker.min.js"></script>
+    <script src="/static/theme/plugins/bower_components/bootstrap-daterangepicker/daterangepicker-xwork.js"></script>
+
+    <!-- Footable -->
+    <script src="/static/theme/plugins/bower_components/footable/js/footable.all.min.js"></script>
+    <script src="/static/theme/plugins/bower_components/bootstrap-select/bootstrap-select.min.js" type="text/javascript"></script>
+    
+    <!--Style Switcher -->
+    <script src="/static/theme/plugins/bower_components/styleswitcher/jQuery.style.switcher.js"></script>
+
+    <!-- <link rel="stylesheet" href="/static/autocomplete/style/vue2-autocomplete.css"> -->
+{% endblock %}

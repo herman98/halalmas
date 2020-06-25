@@ -1,0 +1,29 @@
+{% load checkusergroup from common %}
+{% load unit %}
+
+<!-- Left navbar-header -->
+  <div class="navbar-default sidebar" role="navigation">
+
+    <!-- <div class="sidebar-nav navbar-expanded slimscrollsidebar"> -->
+    <div class="sidebar-nav navbar-expanded slimscrollsidebar">
+
+      <ul class="nav" id="side-menu">
+        <li class="sidebar-search hidden-sm hidden-md hidden-lg">
+          <!-- input-group -->
+          <div class="input-group custom-search-form">
+            <input type="text" class="form-control" placeholder="Cari...">
+            <span class="input-group-btn">
+            <button class="btn btn-default" type="button"> <i class="fa fa-search"></i> </button>
+            </span> </div>
+          <!-- /input-group -->
+        </li>
+
+        {% include 'common/theme1/navbar/include/pindah_role.html' %}
+
+        {% include 'common/theme1/navbar/include/booking.html' %}
+          
+        {% include 'common/theme1/navbar/include/logout_menu.html' %}
+      </ul>
+    </div>
+  </div>
+  <!-- Left navbar-header end -->

@@ -1,4 +1,58 @@
 # Byte-compiled / optimized / DLL files
+*.pyc
+__pycache__/
+
+# Specific format
+# *.csv
+# *.xls
+
+# data
+src/indonesia/data/*
+src/world/data/*
+
+# IDE
+*.idea
+*.orig
+.Rhistory
+.project
+.pydevproject
+.settings/
+
+# Python
+*.pyc
+
+# pytest
+*.cache
+*.coverage
+*htmlcov
+
+# Logging
+*.log
+app/src/*.log
+# app/src/postactivate
+
+
+# Django
+*.sqlite3
+
+# Vagrant
+*.vagrant
+
+# Ansible
+*.retry
+
+# credentials
+*google_api_client_secret.json
+
+#mac-OS tmp file
+*.DS_Store
+
+.venv/
+.vscode/
+
+fabfile.py
+
+# Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
 *$py.class
@@ -95,8 +149,12 @@ ipython_config.py
 __pypackages__/
 
 # Celery stuff
+app/src/celerybeat-schedule
 celerybeat-schedule
 celerybeat.pid
+
+# Static files
+app/src/collected_static
 
 # SageMath parsed files
 *.sage.py

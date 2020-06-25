@@ -1,0 +1,97 @@
+
+<!-- /.modal -->
+<div id="change-pwd-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">Change Password CMS User (Host)</h4> 
+            </div>
+            <div class="modal-body row">
+                <form>
+                    <div class='col-md-12 col-xs-12'>
+                        <div id="id_error_ajax" class="alert alert-danger hidden">
+                            <button type="button" class="close" id="btn_alert_close">&times;</button>
+                            <span id="id_error_ajax_msg">Error messages.</span>
+                        </div>
+                    </div>
+                    
+                    <div class='col-md-12 col-xs-12'>
+                        <div class="form-group">
+                            <label for="recipient-name" class="control-label">Email:</label>
+                            <span class="form-control-static" id="cms_username"> ... </span>
+                        </div>
+                    </div>
+                    <div class='col-md-6 col-xs-12'>
+                        <div class="form-group">
+                            <label for="recipient-name" class="control-label">Fullname:</label>
+                            <div class="input-group"> 
+                                <span class="input-group-addon"><i class='fa fa-user'></i></span>
+                                <input type="text" placeholder="Full Name" class="form-control" id="cms_fullname"> 
+                            </div>
+                        </div>
+                    </div>
+                    <div class='col-md-6 col-xs-12'>
+                        <div class="form-group">
+                            <label for="recipient-name" class="control-label">Phone No:</label>
+                            <div class="input-group"> 
+                                <span class="input-group-addon"><i class='fa fa-phone'></i></span>
+                                <input type="text" placeholder="Phone Number" class="form-control" id="cms_phone_no"> 
+                            </div>
+                        </div>
+                    </div>
+                    <div class='col-md-6 col-xs-12'>
+                        <div class="form-group" id="id_div_pwd">
+                            <label for="recipient-name" class="control-label">New Password:</label>
+                            <div class="input-group"> 
+                                <span class="input-group-addon"><i class='fa fa-key'></i></span>
+                                <input type="password" placeholder="New Password" class="form-control" id="cms_new_pwd1"> 
+                            </div>
+                        </div>
+                    </div>
+                    <div class='col-md-6 col-xs-12'>
+                        <div class="form-group" id="id_div_retype_pwd">
+                            <label for="recipient-name" class="control-label">Re-type New Password:</label>
+                            <div class="input-group"> 
+                                <span class="input-group-addon"><i class='fa fa-key'></i></span>
+                                <input type="password" placeholder="Retype Password" class="form-control" id="cms_new_pwd2" name="state-success"> 
+                            </div>
+                        </div>
+                    </div>
+                    <div class='col-md-12 col-xs-12'>
+                        <div class="form-group hidden">
+                            <label for="recipient-name" class="control-label">Salt:</label>
+                            <div class="input-group"> 
+                                <span class="input-group-addon"><i class='fa fa-link'></i></span>
+                                <input type="text" placeholder="salt" class="form-control" id="cms_salt"> 
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger waves-effect waves-light" onclick="change_pwd()">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div> 
+
+
+<!-- /.modal -->
+<div id="change-pwd-modal-success" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">Change Password:</h4> </div>
+            <div class="modal-body">
+                Your selected User Password has been success changed...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div> 
+           
