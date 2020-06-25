@@ -153,6 +153,12 @@ app/src/celerybeat-schedule
 celerybeat-schedule
 celerybeat.pid
 
+app/src/settings
+app/src/settings/
+
+app/src/postactivate_crm
+app/src/postactivate_me
+
 # Static files
 app/src/collected_static
 
